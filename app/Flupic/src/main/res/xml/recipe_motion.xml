@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+            app:constraintSetEnd="@id/end"
+            app:constraintSetStart="@id/start">
+
+        <KeyFrameSet>
+
+            <KeyAttribute
+                    android:alpha="0"
+                    app:framePosition="0"
+                    app:motionTarget="@id/prevButton" />
+
+            <KeyAttribute
+                    android:alpha="1"
+                    app:framePosition="20"
+                    app:motionTarget="@id/prevButton" />
+
+            <KeyAttribute
+                    android:translationY="0dp"
+                    app:framePosition="66"
+                    app:motionTarget="@id/nextButton" />
+
+            <KeyAttribute
+                    android:translationY="50dp"
+                    app:framePosition="100"
+                    app:motionTarget="@id/nextButton" />
+
+            <KeyAttribute
+                    android:translationX="70dp"
+                    app:framePosition="66"
+                    app:motionTarget="@id/doneButton" />
+
+            <KeyAttribute
+                    android:translationX="0dp"
+                    app:framePosition="100"
+                    app:motionTarget="@id/doneButton" />
+        </KeyFrameSet>
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+                android:id="@id/prevButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        <Constraint
+                android:alpha="1"
+                android:id="@id/nextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:translationY="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        <Constraint
+                android:id="@id/doneButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:translationX="70dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+                android:id="@id/prevButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        <Constraint
+                android:alpha="0"
+                android:id="@id/nextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:translationY="50dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        <Constraint
+                android:id="@id/doneButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:translationX="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+    </ConstraintSet>
+</MotionScene>

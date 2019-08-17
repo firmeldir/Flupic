@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "962112295667",
+    "firebase_url": "https://flupic.firebaseio.com",
+    "project_id": "flupic",
+    "storage_bucket": "flupic.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:962112295667:android:110fdd77e0d2ad96",
+        "android_client_info": {
+          "package_name": "com.example.flupic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "962112295667-fk6ao465uuk07t4vqrkridgdi0sbbf7i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flupic",
+            "certificate_hash": "c0af94f1e06ecd4c13c79ab973f5d29e0eba24fb"
+          }
+        },
+        {
+          "client_id": "962112295667-gpnbcpv5bsrsue81bqt33jheq31fd3nt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAGayO7d32wM1fwcVa_Cr1-VJyV8q0fWk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "962112295667-gpnbcpv5bsrsue81bqt33jheq31fd3nt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+                                                       android:layout_width="match_parent"
+                                                       android:layout_height="match_parent"
+                                                       tools:context=".ui.addTools.recipeAdd">
+
+    <View android:layout_width="320dp" android:layout_height="1dp"
+          android:backgroundTint="@color/colorOnSecond"
+          android:background="#57212121"
+          android:id="@+id/view3"
+          android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.100000024"/>
+
+
+    <TextView
+            android:text="@string/recipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nameText" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/view3" android:layout_marginTop="8dp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/stepNameText"
+            style="@style/Widget.Flupic.TextInputLayout.Reg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/nameText" android:layout_marginTop="8dp" android:hint="@string/step_name"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/addRecipeItem">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:textAppearance="@style/TextAppearance.Flupic.InputAuth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/stepNameInput"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton android:layout_width="wrap_content"
+                                                       android:layout_height="wrap_content"
+                                                       style="@style/Widget.MaterialComponents.Button"
+                                                       android:text="@string/add_step"
+                                                       android:id="@+id/addRecipeItem"
+                                                       app:layout_constraintEnd_toEndOf="parent"
+                                                       android:layout_marginEnd="8dp"
+                                                       app:layout_constraintTop_toBottomOf="@+id/nameText"
+                                                       android:layout_marginTop="8dp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/stepDescriptionText"
+            style="@style/Widget.Flupic.TextInputLayout.Reg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:hint="@string/step_description"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/stepNameText">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:inputType="textMultiLine"
+                android:lines="3"
+                android:textAppearance="@style/TextAppearance.Flupic.InputAuth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/stepDescriptionInput"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.card.MaterialCardView android:layout_width="0dp"
+                                                       android:layout_height="0dp"
+                                                       app:layout_constraintTop_toBottomOf="@+id/stepDescriptionText"
+                                                       app:layout_constraintBottom_toBottomOf="parent"
+                                                       app:layout_constraintEnd_toEndOf="parent"
+                                                       app:layout_constraintStart_toStartOf="parent"
+                                                       android:layout_margin="8dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:id="@+id/recycleView"/>
+
+    </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+

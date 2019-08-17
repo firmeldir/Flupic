@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable name="user" type="com.example.flupic.viewmodels.ProfileViewModel"/>
+
+        <import type="com.example.flupic.domain.FireUser"/>
+    </data>
+
+    <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context=".ui.inside.accountFragment">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:src="@drawable/baker"
+                    app:setProfilePhoto="@{user.userData}"
+                    app:civ_border_width="1dp"
+                    app:civ_border_color="@color/primaryColor" android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="32dp" app:layout_constraintTop_toTopOf="parent"/>
+
+            <com.google.android.material.chip.Chip android:layout_width="wrap_content"
+                                                   android:layout_height="wrap_content"
+                                                   android:layout_marginTop="8dp"
+                                                   app:layout_constraintTop_toBottomOf="@+id/profile_image"
+                                                   app:layout_constraintEnd_toEndOf="parent"
+                                                   android:layout_marginEnd="8dp"
+                                                   app:layout_constraintStart_toStartOf="parent"
+                                                   android:layout_marginStart="8dp"
+                                                   app:setPublications="@{user.userData}"
+                                                   android:fontFamily="@font/nunito" android:id="@+id/publicationsView"/>
+
+            <View android:layout_width="1dp" android:layout_height="24dp"
+                  android:backgroundTint="@color/colorOnSecond"
+                  app:layout_constraintTop_toBottomOf="@+id/publicationsView" app:layout_constraintEnd_toEndOf="parent"
+                  android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+                  android:layout_marginStart="8dp" android:background="@color/colorOnSecond"
+                  android:layout_marginTop="16dp"
+                  android:id="@+id/view"/>
+
+            <View android:layout_width="320dp" android:layout_height="1dp"
+                  android:backgroundTint="@color/colorOnSecond"
+                  android:background="#57212121"
+                  android:id="@+id/view2"
+                  app:layout_constraintTop_toBottomOf="@+id/view" android:layout_marginTop="32dp"
+                  android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
+                  android:layout_marginEnd="8dp"
+                  app:layout_constraintEnd_toEndOf="parent"/>
+
+            <com.google.android.material.button.MaterialButton android:layout_width="wrap_content"
+                                                               android:layout_height="wrap_content"
+                                                               style="@style/Widget.MaterialComponents.Button.TextButton"
+                                                               app:setFollowers="@{user.userData}"
+                                                               android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                                                               android:textColor="@color/colorOnSecond"
+                                                               app:layout_constraintStart_toEndOf="@id/view"
+                                                               android:layout_marginTop="8dp"
+                                                               app:layout_constraintTop_toBottomOf="@+id/publicationsView"
+                                                               android:id="@+id/followingView"/>
+
+
+            <com.google.android.material.button.MaterialButton android:layout_width="wrap_content"
+                                                               android:layout_height="wrap_content"
+                                                               style="@style/Widget.MaterialComponents.Button.TextButton"
+                                                               app:setFollowing="@{user.userData}"
+                                                               android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                                                               android:textColor="@color/colorOnSecond"
+                                                               app:layout_constraintEnd_toStartOf="@id/view"
+                                                               android:layout_marginTop="8dp"
+                                                               app:layout_constraintTop_toBottomOf="@+id/publicationsView"
+                                                               android:id="@+id/followersView"/>
+            <TextView
+                    app:setFullname="@{user.userData}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorOnSecond"
+                    android:id="@+id/textView7"
+                    app:layout_constraintTop_toBottomOf="@+id/view2" android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"/>
+            <TextView
+                    app:setCategory="@{user.userData}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito"
+                    android:id="@+id/textView8" android:layout_marginStart="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/textView7"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="4dp"/>
+            <TextView
+                    app:setBio="@{user.userData}"
+                    style="@style/TextAppearance.Flupic.Description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView9"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="16dp" android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/textView11"/>
+
+            <View android:layout_width="320dp" android:layout_height="1dp"
+                  android:backgroundTint="@color/colorOnSecond"
+                  android:background="#57212121"
+                  android:id="@+id/view3"
+                  app:layout_constraintTop_toBottomOf="@+id/textView9" android:layout_marginTop="16dp"
+                  android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
+                  android:layout_marginEnd="8dp"
+                  app:layout_constraintEnd_toEndOf="parent"/>
+            <TextView
+                    app:setNum="@{user.userData}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView11"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintTop_toBottomOf="@+id/textView7"
+                    app:layout_constraintStart_toEndOf="@+id/textView8" android:layout_marginStart="16dp"/>
+
+
+            <include layout="@layout/inside_account_fragment" android:layout_width="match_parent"
+                     android:layout_height="wrap_content" android:layout_marginTop="4dp"
+                     app:layout_constraintTop_toBottomOf="@id/view3" tools:layout_editor_absoluteX="0dp"
+                     android:id="@+id/include"
+            />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>
+

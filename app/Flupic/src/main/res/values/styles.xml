@@ -1,0 +1,90 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="Flupic" parent="Theme.MaterialComponents.Light.NoActionBar">
+
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorPrimaryVariant">@color/primaryLightColor</item>
+        <item name="colorOnPrimary">@color/colorOnSecond</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryVariantColor</item>
+        <item name="colorOnSecondary">@color/colorOnSecond</item>
+        <item name="colorError">#F44336</item>
+        <item name="colorOnError">@color/colorOnFirst</item>
+        <item name="colorSurface">@color/colorOnFirst</item>
+        <item name="colorOnSurface">@color/colorOnSecond</item>
+        <item name="android:colorBackground">@color/colorOnFirst</item>
+        <item name="colorOnBackground">@color/colorOnSecond</item>
+
+        <item name="bottomNavigationStyle">@style/Widget.Flupic.BottomNavigationView</item>
+        <item name="toolbarStyle">@style/Widget.Flupic.Toolbar</item>
+
+    </style>
+
+    <style name="Widget.Flupic.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="labelVisibilityMode">selected</item>
+        <item name="itemHorizontalTranslationEnabled">true</item>
+    </style>
+
+    <style name="Widget.Flupic.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="titleTextAppearance">@style/TextAppearance.Flupic.Toolbar</item>
+    </style>
+
+    <style name="TextAppearance.Flupic.Toolbar" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/emilys_candy</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="TextAppearance.Flupic.AuthHeadText" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/emilys_candy</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="Widget.Flupic.TextInputLayout.Auth" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="Widget.Flupic.TextInputLayout.Reg" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+    </style>
+
+    <style name="TextAppearance.Flupic.InputAuth" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="fontFamily">@font/nunito</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:color">@color/colorAuth</item>
+    </style>
+
+    <style name="Widget.Flupic.ButtonAuth" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/primaryDarkColor</item>
+        <item name="android:backgroundTint">@color/primaryColor</item>
+    </style>
+    
+    <style name="ShapeAppearance.Flupic.ButtonAuth" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">4dp</item>
+    </style>
+
+    <style name="Widget.Flupic.ButtonAuth2" parent="Widget.MaterialComponents.Button">
+        <item name="shapeAppearance">@style/ShapeAppearance.Flupic.ButtonAuth</item>
+        <item name="android:backgroundTint">@color/secondaryColor</item>
+    </style>
+
+    <style name="TextAppearance.Flupic.HeadlineCard" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:textSize">16dp</item>
+        <item name="fontFamily">@font/emilys_candy</item>
+        <item name="android:textColor">@color/colorOnSecond</item>
+    </style>
+
+    <style name="TextAppearance.Flupic.AuthorCard" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:textSize">12dp</item>
+        <item name="fontFamily">@font/nunito</item>
+    </style>
+
+    <style name="TextAppearance.Flupic.Description" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:textSize">14dp</item>
+        <item name="fontFamily">@font/nunito</item>
+        <item name="android:textColor">@color/colorOnSecond</item>
+    </style>
+    
+</resources>

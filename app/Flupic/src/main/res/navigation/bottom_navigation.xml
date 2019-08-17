@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/bottom_navigation"
+            app:startDestination="@id/feedFragment">
+
+    <fragment android:id="@+id/feedFragment" android:name="com.example.flupic.ui.inside.feedFragment"
+              android:label="fragment_feed" tools:layout="@layout/fragment_feed">
+        <action android:id="@+id/action_feedFragment_to_detailFragment" app:destination="@id/detailFragment"/>
+    </fragment>
+    <fragment android:id="@+id/accountFragment" android:name="com.example.flupic.ui.inside.accountFragment"
+              android:label="fragment_account" tools:layout="@layout/fragment_account">
+        <action android:id="@+id/action_accountFragment_to_editFragment" app:destination="@id/editFragment"/>
+    </fragment>
+    <fragment android:id="@+id/addFragment" android:name="com.example.flupic.ui.inside.addFragment"
+              android:label="fragment_add" tools:layout="@layout/fragment_add"/>
+    <fragment android:id="@+id/editFragment" android:name="com.example.flupic.ui.inside.editFragment"
+              android:label="fragment_edit" tools:layout="@layout/fragment_edit"/>
+    <fragment android:id="@+id/detailFragment" android:name="com.example.flupic.ui.inside.detailFragment"
+              android:label="fragment_detail" tools:layout="@layout/fragment_detail"/>
+</navigation>

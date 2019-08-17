@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+                                                       android:layout_width="match_parent"
+                                                       android:layout_height="match_parent"
+                                                       tools:context=".ui.addTools.mainInfoAdd">
+
+
+        <com.google.android.material.button.MaterialButton android:layout_width="wrap_content"
+                                                           android:layout_height="wrap_content"
+                                                           android:text="@string/add_photo"
+                                                           style="@style/Widget.MaterialComponents.Button"
+                                                           app:layout_constraintTop_toBottomOf="@+id/view3"
+                                                           android:layout_marginTop="16dp"
+                                                           app:layout_constraintEnd_toEndOf="parent"
+                                                           android:layout_marginEnd="8dp" android:id="@+id/addPhoto"/>
+
+
+        <View android:layout_width="320dp" android:layout_height="1dp"
+              android:backgroundTint="@color/colorOnSecond"
+              android:background="#57212121"
+              android:id="@+id/view"
+              android:layout_marginStart="16dp" app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.1"/>
+
+
+        <View android:layout_width="320dp" android:layout_height="1dp"
+              android:backgroundTint="@color/colorOnSecond"
+              android:background="#57212121"
+              android:id="@+id/view2"
+              android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
+              android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/dishPhoto"/>
+
+
+        <View android:layout_width="320dp" android:layout_height="1dp"
+              android:backgroundTint="@color/colorOnSecond"
+              android:background="#57212121"
+              android:id="@+id/view3"
+              android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/dishDescriptionText" android:layout_marginTop="8dp"/>
+        <ImageView
+                android:layout_width="160dp"
+                android:layout_height="160dp" tools:src="@tools:sample/avatars[3]"
+                android:id="@+id/dishPhoto"
+                app:layout_constraintTop_toBottomOf="@+id/view3" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp" android:layout_marginTop="8dp" android:scaleType="centerCrop"/>
+
+
+        <TextView
+                android:text="@string/your_yammy_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/nameText" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp" app:layout_constraintTop_toBottomOf="@+id/view"
+                android:layout_marginTop="8dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/dishNameText"
+                style="@style/Widget.Flupic.TextInputLayout.Reg"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="24dp"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/nameText" android:layout_marginTop="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:textAppearance="@style/TextAppearance.Flupic.InputAuth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/dishNameInput"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+                android:text="@string/dish_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/descText" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/dishNameText"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/dishDescriptionText"
+                style="@style/Widget.Flupic.TextInputLayout.Reg"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="24dp"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/descText" android:layout_marginTop="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:inputType="textMultiLine"
+                    android:lines="3"
+                    android:textAppearance="@style/TextAppearance.Flupic.InputAuth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/dishDescriptionInput"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/ic_baker"
+                app:layout_constraintDimensionRatio="h,"
+                android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view2" android:layout_marginTop="16dp"
+                android:id="@+id/imageView3"/>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timeForCookingText"
+                style="@style/Widget.Flupic.TextInputLayout.Reg"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/imageView3" android:layout_marginEnd="8dp"
+                android:hint="@string/time_for_cooking"
+                android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/peoplePerServiceText">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:inputType="numberDecimal"
+                    android:textAppearance="@style/TextAppearance.Flupic.InputAuth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/timeForCookingInput"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/peoplePerServiceText"
+                style="@style/Widget.Flupic.TextInputLayout.Reg"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/view2" android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/imageView3" android:layout_marginEnd="8dp"
+                android:hint="@string/people_per_service"
+        >
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:inputType="numberDecimal"
+                    android:textAppearance="@style/TextAppearance.Flupic.InputAuth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/peoplePerServiceInput"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+
