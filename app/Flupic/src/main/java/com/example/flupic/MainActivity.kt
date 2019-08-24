@@ -1,22 +1,19 @@
 package com.example.flupic
 
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.navigation.findNavController
-import com.example.flupic.ui.inside.addFragment
-import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import dagger.android.support.DaggerAppCompatActivity
+import javax.inject.Inject
 
 const val TAG = "TAG"
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : DaggerAppCompatActivity(){
 
-    private lateinit var auth: FirebaseAuth
+    @Inject
+    lateinit var auth: FirebaseAuth
 
     private lateinit var authListener: FirebaseAuth.AuthStateListener
 
@@ -27,9 +24,6 @@ class MainActivity : AppCompatActivity(){
         setupFirebase()
     }
 
-
-
-
     override fun onStart() {
         super.onStart()
         auth.addAuthStateListener(authListener)
@@ -37,20 +31,23 @@ class MainActivity : AppCompatActivity(){
 
     override fun onStop() {
         super.onStop()
-        authListener?.let {
+        authListener.let {
             auth.removeAuthStateListener(authListener)
         }
     }
 
     fun setupFirebase(){
-        auth = FirebaseAuth.getInstance()
-
         authListener = FirebaseAuth.AuthStateListener{
 
             val navController = findNavController(R.id.mainNavHostFragment)
 
             if(it.currentUser == null  || !it.currentUser!!.isEmailVerified){
-                navController.navigate(R.id.authenticationFragment)
+
+                if(navController.currentDestination!!.id == R.id.insideFragment){
+                    navController.navigate(R.id.action_insideFragment_to_authenticationFragment2)
+                }else{
+                    navController.navigate(R.id.authenticationFragment)
+                }
 
                 it.currentUser?.let {
                     if(!it.isEmailVerified){

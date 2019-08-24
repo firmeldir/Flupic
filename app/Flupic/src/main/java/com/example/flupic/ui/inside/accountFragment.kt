@@ -10,16 +10,23 @@ import androidx.lifecycle.ViewModelProviders
 
 import com.example.flupic.R
 import com.example.flupic.databinding.FragmentAccountBinding
+import com.example.flupic.di.ViewModelProviderFactory
 import com.example.flupic.util.PublPagerAdapter
 import com.example.flupic.viewmodels.ProfileViewModel
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
 
-class accountFragment : Fragment() {
+class accountFragment : DaggerFragment() {
 
     lateinit var binding: FragmentAccountBinding
 
+    //Injection of ViewModel
+    @Inject
+    lateinit var injectFactory: ViewModelProviderFactory
+
     private val profileViewModel : ProfileViewModel by lazy {
-        ViewModelProviders.of(this).get(
+        ViewModelProviders.of(this, injectFactory).get(
             ProfileViewModel::class.java)
     }
 

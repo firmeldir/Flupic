@@ -1,0 +1,25 @@
+package com.example.flupic.di.module
+
+
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import dagger.Module
+import dagger.Provides
+import javax.inject.Singleton
+
+@Module
+class ApplicationModule{
+
+    @Singleton
+    @Provides
+    fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
+
+    @Singleton
+    @Provides
+    fun provideFirebaseFirestore(): FirebaseFirestore = FirebaseFirestore.getInstance()
+
+    @Singleton
+    @Provides
+    fun provideFirebaseStorage(): FirebaseStorage = FirebaseStorage.getInstance()
+}

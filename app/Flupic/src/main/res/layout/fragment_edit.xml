@@ -10,6 +10,14 @@
     </data>
 
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer"
+            app:shimmer_highlight_alpha="0.5"
+            app:shimmer_base_alpha="1"
+            app:shimmer_auto_start="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -167,6 +175,9 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
 
 </layout>
 

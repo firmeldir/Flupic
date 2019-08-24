@@ -9,5 +9,5 @@ data class FireDish(
     val description: String = "",
     var photo_url: String = "",
     val date: Timestamp = Timestamp(Date()),
-    val likes: Int = 0
+    val likes: List<String> = listOf()
 )

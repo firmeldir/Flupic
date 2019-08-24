@@ -1,5 +1,6 @@
 package com.example.flupic.util
 
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isGone
@@ -84,9 +85,20 @@ fun setPhotoByUri(imageView: ImageView, photo_url: String?)
 }
 
 @BindingAdapter("setDateFromTimestamp")
-fun setDateFromTimestamp(textView: TextView, timestamp: Timestamp)
+fun setDateFromTimestamp(textView: TextView, timestamp: Timestamp?)
 {
-    textView.text = "${timestamp.toDate().toLocaleString()}"
+    timestamp?.let {
+        textView.text = "${timestamp.toDate().toLocaleString()}"
+    }
 }
+
+@BindingAdapter("setLikes")
+fun setLikes(textView: TextView, list: List<String>?)
+{
+    list?.let {
+        textView.text = "${list.size}"
+    }
+}
+
 
 

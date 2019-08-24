@@ -8,14 +8,11 @@ import com.example.flupic.TAG
 import com.example.flupic.domain.FireUser
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
+import javax.inject.Inject
 
-class ProfileViewModel : ViewModel(), EventListener<DocumentSnapshot>{
+class ProfileViewModel @Inject constructor(val auth : FirebaseAuth, db : FirebaseFirestore) : ViewModel(), EventListener<DocumentSnapshot>{
 
-    //Firebase
-    private val auth = FirebaseAuth.getInstance()
-
-    private val db = FirebaseFirestore.getInstance()
-    private val ref = db.collection("users").document(auth.uid.toString())
+    private val userRef = db.collection("users").document(auth.uid.toString())
 
     //User
     private val _userData: MutableLiveData<FireUser> = MutableLiveData()
@@ -24,11 +21,11 @@ class ProfileViewModel : ViewModel(), EventListener<DocumentSnapshot>{
 
 
     //Listener
-    private val listener : ListenerRegistration? = ref.addSnapshotListener(this)
+    private val listener : ListenerRegistration? = userRef.addSnapshotListener(this)
 
     override fun onEvent(p0: DocumentSnapshot?, p1: FirebaseFirestoreException?) {
         p1?.let {
-            Log.e(TAG, "Error in ProfileViewModel : ${p1.message}")
+            Log.e(TAG, "onEvent() : ${p1.message}")
             return
         }
 

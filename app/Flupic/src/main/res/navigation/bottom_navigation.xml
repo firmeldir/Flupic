@@ -17,5 +17,7 @@
     <fragment android:id="@+id/editFragment" android:name="com.example.flupic.ui.inside.editFragment"
               android:label="fragment_edit" tools:layout="@layout/fragment_edit"/>
     <fragment android:id="@+id/detailFragment" android:name="com.example.flupic.ui.inside.detailFragment"
-              android:label="fragment_detail" tools:layout="@layout/fragment_detail"/>
+              android:label="fragment_detail" tools:layout="@layout/fragment_detail">
+        <argument android:name="accesId" app:argType="string"/>
+    </fragment>
 </navigation>

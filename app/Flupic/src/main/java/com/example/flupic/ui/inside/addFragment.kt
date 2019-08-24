@@ -13,23 +13,29 @@ import androidx.viewpager.widget.ViewPager
 import com.example.flupic.R
 
 import com.example.flupic.databinding.FragmentAddBinding
+import com.example.flupic.di.ViewModelProviderFactory
 import com.example.flupic.domain.FireDish
 import com.example.flupic.domain.FireRecipe
 import com.example.flupic.util.AddPageListener
 import com.example.flupic.util.AddPecipeAdapter
 import com.example.flupic.viewmodels.AddViewModel
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_add.*
+import javax.inject.Inject
 
 
-
-class addFragment : Fragment() {
-
-    private val addViewModel : AddViewModel by lazy {
-        ViewModelProviders.of(this).get(
-            AddViewModel::class.java)
-    }
+class addFragment : DaggerFragment() {
 
     lateinit var binding: FragmentAddBinding
+
+    //Injection of ViewModel
+    @Inject
+    lateinit var injectFactory: ViewModelProviderFactory
+
+    private val addViewModel : AddViewModel by lazy {
+        ViewModelProviders.of(this, injectFactory).get(
+            AddViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +53,8 @@ class addFragment : Fragment() {
 
         binding.doneButton.setOnClickListener {
 
+            binding.shimmer.startShimmer()
+
             var name: String = ""
             var description: String = ""
             var peoplePerService: Int = 0
@@ -58,8 +66,12 @@ class addFragment : Fragment() {
                 val infoFragBinding = adapter.fragment2.binding
                 name = infoFragBinding.dishNameInput.text.toString()
                 description = infoFragBinding.dishDescriptionInput.text.toString()
-                peoplePerService = infoFragBinding.peoplePerServiceInput.text.toString().toInt()
-                cookingTime = infoFragBinding.timeForCookingInput.text.toString().toInt()
+                if (!infoFragBinding.peoplePerServiceInput.text.toString().isEmpty()){
+                    peoplePerService = infoFragBinding.peoplePerServiceInput.text.toString().toInt()
+                }
+                if (!infoFragBinding.timeForCookingInput.text.toString().isEmpty()){
+                    cookingTime = infoFragBinding.timeForCookingInput.text.toString().toInt()
+                }
             }
 
             val fireDish = FireDish(name, description = description)

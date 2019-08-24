@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="fireDish" type="com.example.flupic.domain.FireDish"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <TextView
+                style="@style/TextAppearance.Flupic.HeadlineCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/dishesName"
+                android:text="@{fireDish.name}"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp" android:layout_marginTop="16dp"
+                android:textSize="32sp"/>
+        <TextView
+                style="@style/TextAppearance.Flupic.AuthorCard"
+                android:text="@string/by"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/by"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/dishesName"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="4dp"/>
+        <TextView
+                style="@style/TextAppearance.Flupic.AuthorCard"
+                android:text="@{fireDish.author}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/authorName"
+                app:layout_constraintStart_toEndOf="@+id/by" app:layout_constraintTop_toBottomOf="@+id/dishesName"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp" />
+
+        <View android:layout_width="320dp" android:layout_height="1dp"
+              android:backgroundTint="@color/colorOnSecond"
+              android:background="#57212121"
+              android:id="@+id/view3"
+              app:layout_constraintTop_toBottomOf="@+id/authorName"
+              android:layout_marginTop="8dp" app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+                style="@style/TextAppearance.Flupic.Description"
+                android:text="@{fireDish.description}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/description"
+                app:layout_constraintTop_toBottomOf="@+id/view3"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp" android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:textSize="14sp"/>
+
+        <TextView
+                app:setDateFromTimestamp="@{fireDish.date}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/date"
+                app:layout_constraintTop_toBottomOf="@+id/description" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp" android:layout_marginTop="4dp"
+                android:textSize="8sp"/>
+
+        <View android:layout_width="320dp" android:layout_height="1dp"
+              android:backgroundTint="@color/colorOnSecond"
+              android:background="#57212121"
+              android:id="@+id/view2"
+              app:layout_constraintTop_toBottomOf="@+id/date"
+              android:layout_marginTop="8dp" app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.google.android.material.button.MaterialButton android:layout_width="wrap_content"
+                                                           android:layout_height="wrap_content"
+                                                           app:icon="@drawable/ic_por_person"
+                                                           android:textSize="12sp"
+                                                           android:textColor="@color/primaryDarkColor"
+                                                           style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                                                           android:id="@+id/persPerService"
+                                                           app:layout_constraintTop_toBottomOf="@+id/view2"
+                                                           android:layout_marginTop="4dp"
+                                                           app:layout_constraintStart_toEndOf="@+id/cookingTime"
+                                                           android:layout_marginStart="8dp"/>
+
+        <com.google.android.material.button.MaterialButton android:layout_width="wrap_content"
+                                                           android:layout_height="wrap_content"
+                                                           app:icon="@drawable/ic_timer"
+                                                           android:textSize="12sp"
+                                                           android:textColor="@color/primaryDarkColor"
+                                                           style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                                                           android:id="@+id/cookingTime"
+                                                           app:layout_constraintTop_toBottomOf="@+id/view2"
+                                                           android:layout_marginTop="4dp"
+                                                           android:layout_marginStart="4dp"
+                                                           app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.viewpager.widget.ViewPager android:layout_width="match_parent"
+                                             android:layout_height="446dp" android:id="@+id/pager"
+                                             app:layout_constraintStart_toStartOf="parent"
+                                             android:layout_marginTop="8dp"
+                                             app:layout_constraintTop_toBottomOf="@+id/cookingTime"
+                                             app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabs"
+                    app:tabMode="fixed"
+                    app:tabIndicatorColor="@color/primaryDarkColor"
+                    android:layout_gravity="top"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" app:layout_constraintTop_toTopOf="parent">
+
+            </com.google.android.material.tabs.TabLayout>
+
+        </androidx.viewpager.widget.ViewPager>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+

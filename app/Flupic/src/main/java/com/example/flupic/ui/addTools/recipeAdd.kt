@@ -34,7 +34,7 @@ class recipeAdd : Fragment() {
     ): View? {
         binding = FragmentRecipeAddBinding.inflate(inflater, container, false)
 
-        binding.addRecipeItem.setOnClickListener {             Log.i(TAG, "1")
+        binding.addRecipeItem.setOnClickListener {
             addViewModel.addRecipeItem(binding.stepNameInput.text.toString(),
             binding.stepDescriptionInput.text.toString()) }
 
@@ -50,7 +50,6 @@ class recipeAdd : Fragment() {
 
         addViewModel.recipe.observe(this, Observer {
             adapter.data = it
-            Log.i(TAG, "2")
         })
     }
 }

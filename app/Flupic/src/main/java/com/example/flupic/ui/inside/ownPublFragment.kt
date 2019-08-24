@@ -9,7 +9,6 @@ import android.view.ViewGroup
 
 import com.example.flupic.R
 
-
 class ownPublFragment : Fragment() {
 
     override fun onCreateView(

@@ -19,13 +19,13 @@ class IngredientListAdapter : RecyclerView.Adapter<IngredientListAdapter.Ingredi
 
     override fun getItemCount(): Int = data.size
 
-    override fun onBindViewHolder(holder: IngredientHolder, position: Int) = holder.bind(data[position])
+    override fun onBindViewHolder(holder: IngredientHolder, position: Int) = holder.bind(data[position], position)
 
 
     class IngredientHolder(val binding: IngredientItemBinding) : RecyclerView.ViewHolder(binding.root){
 
-        fun bind(string: String) {
-            binding.indredient = string
+        fun bind(string: String, position: Int) {
+            binding.indredient = "${position + 1}. $string"
             binding.executePendingBindings()
         }
 

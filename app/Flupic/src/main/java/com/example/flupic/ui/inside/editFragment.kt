@@ -22,34 +22,36 @@ import android.net.Uri
 import android.util.Log
 import com.bumptech.glide.Glide
 import com.example.flupic.TAG
+import com.example.flupic.di.ViewModelProviderFactory
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
 
-const val CODE_PHOTO_REQUES = 1023
-const val GET_PERMISSION_REQUES = 1024
+const val CODE_PHOTO_REQUES = 1015
+const val GET_PERMISSION_REQUES = 1510
 
 
-class editFragment : Fragment() {
+class editFragment : DaggerFragment() {
 
     lateinit var binding: FragmentEditBinding
 
-    var newPhotoUri: Uri? = null
+    //Injection of ViewModel
+    @Inject
+    lateinit var injectFactory: ViewModelProviderFactory
 
     private val editViewModel : EditViewModel by lazy {
-        ViewModelProviders.of(this).get(
+        ViewModelProviders.of(this, injectFactory).get(
             EditViewModel::class.java)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    private var newPhotoUri: Uri? = null
+
+    override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentEditBinding.inflate(inflater, container, false)
 
         binding.backButton.setOnClickListener { navBack() }
 
-        binding.applyButton.setOnClickListener {
-            applyChanges()
-        }
+        binding.applyButton.setOnClickListener { applyChanges() }
 
         binding.materialButton.setOnClickListener { loadAndChangePhoto() }
 
@@ -68,10 +70,16 @@ class editFragment : Fragment() {
 
     private fun applyChanges(){
 
+        //Block until done
+        binding.shimmer.startShimmer()
+
         binding.fullNameInput.isEnabled = false
         binding.bioInput.isEnabled = false
         binding.numInput.isEnabled = false
         binding.spinner.isEnabled = false
+        binding.backButton.isEnabled = false
+        binding.materialButton.isEnabled = false
+        binding.applyButton.isEnabled = false
 
         val fullname = binding.fullNameInput.text.toString()
         val bio = binding.bioInput.text.toString()
@@ -85,11 +93,7 @@ class editFragment : Fragment() {
         }
     }
 
-    fun navBack(){ findNavController().popBackStack() }
-
     fun loadAndChangePhoto(){
-
-        Log.i(TAG, "!")
 
         if (ContextCompat.checkSelfPermission(context!!, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
@@ -107,13 +111,13 @@ class editFragment : Fragment() {
     }
 
     fun startGallery(){
+
         val cameraIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply {
             type = "image/jpg"
         }
 
         if (cameraIntent.resolveActivity(activity!!.packageManager) != null) {
             startActivityForResult(cameraIntent, CODE_PHOTO_REQUES)
-            Log.i(TAG, "!!")
         }
     }
 
@@ -121,7 +125,6 @@ class editFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK && requestCode == CODE_PHOTO_REQUES) {
-
             data?.let {
                 val returnUri: Uri? = data.data
 
@@ -136,4 +139,6 @@ class editFragment : Fragment() {
             }
         }
     }
+
+    fun navBack() = findNavController().popBackStack()
 }

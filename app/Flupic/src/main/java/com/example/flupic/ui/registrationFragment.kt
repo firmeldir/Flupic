@@ -11,22 +11,28 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 
 import com.example.flupic.R
+import com.example.flupic.TAG
 import com.example.flupic.databinding.FragmentRegistrationBinding
 import com.example.flupic.domain.FireUser
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_authentication.emailInput
 import kotlinx.android.synthetic.main.fragment_authentication.passwordInput
 import kotlinx.android.synthetic.main.fragment_registration.*
+import javax.inject.Inject
 
+//todo create auth repo
 
-class registrationFragment : Fragment() {
+class registrationFragment : DaggerFragment() {
 
     lateinit var binding: FragmentRegistrationBinding
 
+    @Inject
     lateinit var authInstance: FirebaseAuth
 
+    @Inject
     lateinit var db: FirebaseFirestore
 
     override fun onCreateView(
@@ -34,12 +40,8 @@ class registrationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRegistrationBinding.inflate(inflater, container, false)
-        authInstance = FirebaseAuth.getInstance()
-        db = FirebaseFirestore.getInstance()
 
-        binding.backButton.setOnClickListener {
-            navBack()
-        }
+        binding.backButton.setOnClickListener { navBack() }
 
         binding.signUpButton.setOnClickListener {
             signUp(emailInput.text.toString(), passwordInput.text.toString(), bioInput.text.toString(), usernameInput.text.toString())
@@ -60,9 +62,10 @@ class registrationFragment : Fragment() {
             db.collection("users").whereEqualTo("username", username).get().addOnSuccessListener {
                 if (!it.isEmpty){
                     showToast(getString(R.string.a_error_4))
-                    Log.i("TAG", "USER WITH THIS USERNAME EXIST")
+                    Log.i(TAG, "signUp() : EXIST")
                 }else{
-                    Log.i("TAG", "USER WITH THIS USERNAME DON'T EXIST")
+
+                    Log.i(TAG, "signUp() : DON'T EXIST : $username")
 
                     authInstance.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener { task ->
@@ -80,7 +83,7 @@ class registrationFragment : Fragment() {
 
                             } else {
                                 showToast(getString(R.string.a_error_5))
-                                Log.i("TAG", "FAILURE REG TASK ${task.exception.toString()}")
+                                Log.i(TAG, "signUp() : ${task.exception.toString()}")
                             }
                         }
                 }
@@ -92,10 +95,10 @@ class registrationFragment : Fragment() {
         user.sendEmailVerification()
             .addOnCompleteListener { emailTask ->
                 if (emailTask.isSuccessful) {
-                    Log.i("TAG", "SUCCESS EMAIL TASK")
+                    Log.i(TAG, "sendVerificationEmailToUser() : SUCCESS")
                 }
                 else {
-                    Log.i("TAG", "FAILURE EMAIL TASK")
+                    Log.i(TAG, "sendVerificationEmailToUser() : FAILURE")
                 }
             }
     }

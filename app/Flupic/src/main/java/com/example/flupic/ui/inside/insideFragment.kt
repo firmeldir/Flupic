@@ -14,13 +14,16 @@ import com.example.flupic.R
 import com.example.flupic.TAG
 import com.example.flupic.databinding.FragmentInsideBinding
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.fragment_inside.*
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
 
-class insideFragment : Fragment() {
+class insideFragment : DaggerFragment() {
 
     lateinit var binding: FragmentInsideBinding
 
+    //todo create auth repo
+    @Inject
     lateinit var authInstance: FirebaseAuth
 
     override fun onCreateView(
@@ -34,17 +37,9 @@ class insideFragment : Fragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        Log.i("TAG", childFragmentManager.findFragmentById(R.id.bottomNavHostFragment)?.view?.height.toString())
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-
-        authInstance = FirebaseAuth.getInstance()
     }
 
     private fun setupUI(){
@@ -56,7 +51,7 @@ class insideFragment : Fragment() {
             binding.bottomNavigationView.setupWithNavController(host.navController)
 
             host.navController.addOnDestinationChangedListener { controller, destination, arguments ->
-                if(destination.id == R.id.addFragment || destination.id == R.id.editFragment){
+                if(destination.id == R.id.addFragment || destination.id == R.id.editFragment  || destination.id == R.id.detailFragment){
                     binding.downMotionLayout.transitionToEnd()
                 }else{
                     binding.downMotionLayout.transitionToStart()
