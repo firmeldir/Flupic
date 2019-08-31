@@ -6,66 +6,79 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flupic.databinding.FeedItemBinding
 import com.example.flupic.domain.FireDish
+import com.example.flupic.domain.FlupicDish
 import com.google.firebase.firestore.DocumentSnapshot
 
-import com.google.firebase.firestore.Query
 
-enum class FeedAction{
-    LIKE, SELECT
-}
-
-class FeedRecyclerViewAdapter(userUID: String
-                              ,query: Query
+class FeedRecyclerViewAdapter(private val userUID: String
                               ,private val like: Drawable?, private val unlike: Drawable?
-                              ,private val detailListener : (id: String, action: FeedAction) -> Unit)
-    : RecyclerFirestoreAdapter<FeedRecyclerViewAdapter.FeedHolder>(query){
+                              ,private val detailListener : (accesId: String, authorId: String ,action: FeedAction) -> Unit)
+    : RecyclerView.Adapter<FeedRecyclerViewAdapter.FeedHolder>(){
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedHolder = FeedHolder.from(parent, detailListener)
+    var data: List<FlupicDish> = listOf()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
-    override fun onBindViewHolder(holder: FeedHolder, position: Int) = holder.bind(snapshots[position], like, unlike)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedHolder = FeedHolder.from(userUID, parent, detailListener)
 
-    companion object ID{
-        internal var userUID = ""
-    }
+    override fun getItemCount(): Int = data.size
 
-    init {
-        ID.userUID = userUID
-    }
+    override fun onBindViewHolder(holder: FeedHolder, position: Int) = holder.bind(data[position],like, unlike)
 
-    class FeedHolder(val binding: FeedItemBinding, val detailListener : (id: String, action: FeedAction) -> Unit) : RecyclerView.ViewHolder(binding.root){
+
+    class FeedHolder(private val userUID: String, val binding: FeedItemBinding,
+                     val detailListener : (accesId: String, authorId: String ,action: FeedAction) -> Unit) : RecyclerView.ViewHolder(binding.root){
 
         private lateinit var  accesId: String
+        private lateinit var  authorId: String
 
-        fun bind(snapshot: DocumentSnapshot, like: Drawable?, unlike: Drawable?) {
-            val fireDish = snapshot.toObject(FireDish::class.java)
+        //todo animation like
+        private var likeState: Boolean = false
+
+        fun bind(flupicDish: FlupicDish, like: Drawable?, unlike: Drawable?) {
+            val dish = flupicDish.dish
 
             binding.listenCard.setOnClickListener {
-                detailListener(accesId, FeedAction.SELECT)
+                detailListener(accesId, authorId, FeedAction.SELECT)
             }
 
             binding.likeButton.setOnClickListener {
-                detailListener(accesId, FeedAction.LIKE)
-            }
-
-            if(fireDish != null && like != null && unlike != null){
-                if(fireDish.likes.contains(ID.userUID)){
+                detailListener(accesId, authorId, FeedAction.LIKE)
+                likeState = !likeState
+                if(likeState){
                     binding.likeButton.setImageDrawable(like)
                 }else{
                     binding.likeButton.setImageDrawable(unlike)
                 }
             }
 
-            binding.dish = fireDish
-            accesId = snapshot.id
+            if(like != null && unlike != null){
+                likeState = if(dish.likes.contains(userUID)){
+                    binding.likeButton.setImageDrawable(like)
+                    true
+                }else{
+                    binding.likeButton.setImageDrawable(unlike)
+                    false
+                }
+            }
+
+            binding.dish = dish
+            accesId = flupicDish.dishId
+            authorId = flupicDish.authorId
             binding.executePendingBindings()
         }
 
         companion object {
-            fun from(parent: ViewGroup, detailListener : (id: String, action: FeedAction) -> Unit): FeedHolder {
+            fun from(userUID:String, parent: ViewGroup, detailListener : (accesId: String, authorId: String ,action: FeedAction) -> Unit): FeedHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = FeedItemBinding.inflate(layoutInflater, parent, false)
-                return FeedHolder(binding, detailListener)
+                return FeedHolder(userUID, binding, detailListener)
             }
         }
     }
 }
+
+
+

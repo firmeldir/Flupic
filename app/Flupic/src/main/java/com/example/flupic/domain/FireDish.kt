@@ -11,3 +11,13 @@ data class FireDish(
     val date: Timestamp = Timestamp(Date()),
     val likes: List<String> = listOf()
 )
+
+data class FlupicDish(
+    val dish: FireDish,
+    val dishId: String,
+    val authorId: String
+) : Comparable<FlupicDish>{
+
+    override fun compareTo(other: FlupicDish): Int = this.dish.date.compareTo(other.dish.date)
+
+}

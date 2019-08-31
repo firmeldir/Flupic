@@ -2,19 +2,24 @@ package com.example.flupic.ui.inside
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 
 import com.example.flupic.R
+import com.example.flupic.TAG
 import com.example.flupic.databinding.FragmentFeedBinding
 import com.example.flupic.di.ViewModelProviderFactory
 import com.example.flupic.util.adapters.FeedAction
 import com.example.flupic.util.adapters.FeedRecyclerViewAdapter
+import com.example.flupic.util.adapters.OwnRecyclerViewAdapter
 import com.example.flupic.viewmodels.EditViewModel
 import com.example.flupic.viewmodels.FeedViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -36,38 +41,28 @@ class feedFragment : DaggerFragment() {
     @Inject
     lateinit var injectFactory: ViewModelProviderFactory
 
+    @Inject
+    lateinit var auth: FirebaseAuth
+
     private val feedViewModel : FeedViewModel by lazy {
         ViewModelProviders.of(this, injectFactory).get(
             FeedViewModel::class.java)
     }
 
-    //Firebase
-    @Inject
-    lateinit var db: FirebaseFirestore
-
-    @Inject
-    lateinit var auth: FirebaseAuth
-
-
-    private val postQuery: Query by lazy {
-        db.collection("users").document(auth.uid.toString())
-            .collection("posts").orderBy("date", Query.Direction.DESCENDING).limit(SEARCH_LIMIT.toLong())
-    }
-
     private val adapter: FeedRecyclerViewAdapter by lazy {
-        FeedRecyclerViewAdapter(auth.uid!!,postQuery
-            ,resources.getDrawable(R.drawable.ic_favorite_black_24dp)
-                ,resources.getDrawable(R.drawable.ic_favorite_border)
-        ) { s: String, feedAction: FeedAction ->
+        FeedRecyclerViewAdapter(auth.uid!!
+            , ContextCompat.getDrawable(context!!, R.drawable.ic_favorite_black_24dp)
+            , ContextCompat.getDrawable(context!!,R.drawable.ic_favorite_border)
+        ) { d: String, a:String, feedAction: FeedAction ->
 
             if(feedAction == FeedAction.SELECT){
                 val extras = FragmentNavigatorExtras(
                     mainImages to "imageDetail"
                 )
-                val action =  feedFragmentDirections.actionFeedFragmentToDetailFragment(s)
+                val action =  feedFragmentDirections.actionFeedFragmentToDetailFragment(d, a)
                 findNavController().navigate(action,extras)
             }else{
-                feedViewModel.like(s)
+                feedViewModel.like(d, a)
             }
         }
     }
@@ -76,25 +71,20 @@ class feedFragment : DaggerFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = FragmentFeedBinding.inflate(inflater, container, false)
 
-        setupRecyclerView()
+        setupUI()
 
         return binding.root
     }
 
-    fun setupRecyclerView(){
+    private fun setupUI(){
         binding.recyclerView.adapter = adapter
+
+        feedViewModel.feed.observe(this, Observer {
+            adapter.data = it
+            Log.i(TAG, it.toString())  //todo remove it
+        })
     }
 
-    override fun onStart() {
-        super.onStart()
-        adapter.startListening()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        adapter.stopListening()
-    }
 }

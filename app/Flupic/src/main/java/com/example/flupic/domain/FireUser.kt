@@ -7,7 +7,7 @@ data class FireUser (
     val category: String = "",
     val phone_num: String = "",
     val photo_url: String = "",
-    val followers: Int = 0,
+    val followers: List<String> = listOf(),
     val publications: Int = 0,
     val following: List<String> = listOf()
 )

@@ -51,7 +51,10 @@ class insideFragment : DaggerFragment() {
             binding.bottomNavigationView.setupWithNavController(host.navController)
 
             host.navController.addOnDestinationChangedListener { controller, destination, arguments ->
-                if(destination.id == R.id.addFragment || destination.id == R.id.editFragment  || destination.id == R.id.detailFragment){
+                if(destination.id == R.id.addFragment
+                    || destination.id == R.id.editFragment
+                    || destination.id == R.id.detailFragment
+                    || destination.id == R.id.mapFragment){
                     binding.downMotionLayout.transitionToEnd()
                 }else{
                     binding.downMotionLayout.transitionToStart()
@@ -75,6 +78,14 @@ class insideFragment : DaggerFragment() {
                 if(childFragmentManager.findFragmentById(R.id.bottomNavHostFragment) is NavHostFragment){
                     val host: NavHostFragment = childFragmentManager.findFragmentById(R.id.bottomNavHostFragment) as NavHostFragment
                     host.navController.navigate(R.id.editFragment)
+                }
+                true
+            }
+            R.id.map ->{
+                if(childFragmentManager.findFragmentById(R.id.bottomNavHostFragment) is NavHostFragment) {
+                    val host: NavHostFragment =
+                        childFragmentManager.findFragmentById(R.id.bottomNavHostFragment) as NavHostFragment
+                    host.navController.navigate(R.id.mapFragment)
                 }
                 true
             }

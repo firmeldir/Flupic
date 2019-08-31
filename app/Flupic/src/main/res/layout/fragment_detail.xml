@@ -58,6 +58,7 @@
 
                 </androidx.core.widget.NestedScrollView>
 
+                <!--todo color from it-->
                 <ImageButton
                         android:src="@drawable/ic_arrow_back"
                         android:backgroundTint="#00FFFFFF"

@@ -11,4 +11,10 @@
             android:title="@string/sign_out"
             app:showAsAction="never" />
 
+
+    <item
+            android:id="@+id/map"
+            android:title="@string/our_masters_around"
+            app:showAsAction="never|ifRoom" android:icon="@drawable/ic_bakery"/>
+
 </menu>

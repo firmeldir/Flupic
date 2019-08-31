@@ -6,21 +6,26 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.example.flupic.ui.inside.ownPublFragment
 import com.example.flupic.ui.inside.savedPublFragment
 
-class PublPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class PublPagerAdapter(fm: FragmentManager, private val profileUID:String = "0", private val saved:savedPublFragment = savedPublFragment()) : FragmentPagerAdapter(fm) {
 
-    override fun getItem(position: Int): Fragment {
-        return when (position) {
-            0 -> {
-                ownPublFragment()
-            }
-            else -> {
-                return savedPublFragment()
-            }
-        }
+    private val own:ownPublFragment = if(profileUID == "0"){
+        ownPublFragment()
+    }else{
+        ownPublFragment(profileUID)
     }
 
+    override fun getItem(position: Int): Fragment = when (position) {
+            0 -> own
+            1 -> saved
+            else -> own
+            }
+
     override fun getCount(): Int {
-        return 2
+        return if(profileUID == "0"){
+            2
+        }else{
+            1
+        }
     }
 
     override fun getPageTitle(position: Int): CharSequence {

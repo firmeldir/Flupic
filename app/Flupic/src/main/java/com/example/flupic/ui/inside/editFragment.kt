@@ -16,13 +16,19 @@ import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.content.pm.PackageManager
 import android.content.Intent
 import android.app.Activity
+import android.app.ProgressDialog.show
 import android.provider.MediaStore
 import androidx.core.content.ContextCompat
 import android.net.Uri
 import android.util.Log
+import android.widget.ArrayAdapter
 import com.bumptech.glide.Glide
+import com.example.flupic.R
 import com.example.flupic.TAG
 import com.example.flupic.di.ViewModelProviderFactory
+import com.example.flupic.domain.FireUser
+import com.example.flupic.ui.dialogue.BIS_DIA_LOC_ID
+import com.example.flupic.ui.dialogue.businessLocationDialogueFragment
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -31,7 +37,7 @@ const val CODE_PHOTO_REQUES = 1015
 const val GET_PERMISSION_REQUES = 1510
 
 
-class editFragment : DaggerFragment() {
+class editFragment : DaggerFragment() , businessLocationDialogueFragment.LocationListener {
 
     lateinit var binding: FragmentEditBinding
 
@@ -46,6 +52,8 @@ class editFragment : DaggerFragment() {
 
     private var newPhotoUri: Uri? = null
 
+    private val locationDialogue = businessLocationDialogueFragment()
+
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentEditBinding.inflate(inflater, container, false)
 
@@ -55,15 +63,17 @@ class editFragment : DaggerFragment() {
 
         binding.materialButton.setOnClickListener { loadAndChangePhoto() }
 
+        binding.setBusinessLocDiaButton.setOnClickListener { locationDialogue.show(childFragmentManager, BIS_DIA_LOC_ID) }
+
+        initSpinner()
+
         editViewModel.curUser.observe(this, Observer {
             binding.changeableUser = it
+            selectSpinner(it)
         })
 
-        editViewModel.isDone.observe(this, Observer {
-            if(it == true){
-                navBack()
-            }
-        })
+        editViewModel.isDone.observe(this, Observer { if(it == true){ navBack() }})
+        editViewModel.isSetLocDone.observe(this, Observer { if(it == true){ locationDialogue.onDone() } })
 
         return binding.root
     }
@@ -121,6 +131,26 @@ class editFragment : DaggerFragment() {
         }
     }
 
+    private fun initSpinner(){
+
+        val spinnerList: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(context!!, R.array.category_list, android.R.layout.simple_spinner_item)
+            .apply {
+                setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            }
+
+        binding.spinner.adapter = spinnerList
+    }
+
+    private fun selectSpinner(user: FireUser){
+        val selectArray = resources.getStringArray(R.array.category_list)
+
+        when(user.category){
+            selectArray[0] -> binding.spinner.setSelection(0)
+            selectArray[1] -> binding.spinner.setSelection(1)
+            selectArray[2] -> binding.spinner.setSelection(2)
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -138,6 +168,10 @@ class editFragment : DaggerFragment() {
                 }
             }
         }
+    }
+
+    override fun onSetLocation() {
+        editViewModel.putBusinessLocation()
     }
 
     fun navBack() = findNavController().popBackStack()

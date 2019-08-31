@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.flupic.TAG
 import com.google.firebase.firestore.*
 
-abstract class RecyclerFirestoreAdapter<VH : RecyclerView.ViewHolder>(val query: Query) : RecyclerView.Adapter<VH>() , EventListener<QuerySnapshot>{
+abstract class RecyclerFirestoreAdapter<VH : RecyclerView.ViewHolder>(private val query: Query) : RecyclerView.Adapter<VH>() , EventListener<QuerySnapshot>{
 
     protected val snapshots: MutableList<DocumentSnapshot> = mutableListOf()
     protected var listener: ListenerRegistration? = null

@@ -11,6 +11,8 @@
     <fragment android:id="@+id/accountFragment" android:name="com.example.flupic.ui.inside.accountFragment"
               android:label="fragment_account" tools:layout="@layout/fragment_account">
         <action android:id="@+id/action_accountFragment_to_editFragment" app:destination="@id/editFragment"/>
+        <argument android:name="userUID" app:argType="string" android:defaultValue="0"/>
+        <action android:id="@+id/action_accountFragment_to_detailFragment" app:destination="@id/detailFragment"/>
     </fragment>
     <fragment android:id="@+id/addFragment" android:name="com.example.flupic.ui.inside.addFragment"
               android:label="fragment_add" tools:layout="@layout/fragment_add"/>
@@ -19,5 +21,10 @@
     <fragment android:id="@+id/detailFragment" android:name="com.example.flupic.ui.inside.detailFragment"
               android:label="fragment_detail" tools:layout="@layout/fragment_detail">
         <argument android:name="accesId" app:argType="string"/>
+        <argument android:name="authorId" app:argType="string"/>
+    </fragment>
+    <fragment android:id="@+id/mapFragment" android:name="com.example.flupic.ui.map.mapFragment"
+              android:label="fragment_map" tools:layout="@layout/fragment_map">
+        <action android:id="@+id/action_mapFragment_to_accountFragment" app:destination="@id/accountFragment"/>
     </fragment>
 </navigation>

@@ -1,23 +1,25 @@
 package com.example.flupic.repository
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.util.Log
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import com.example.flupic.TAG
-import com.example.flupic.domain.FireDish
-import com.example.flupic.domain.FireRecipe
-import com.example.flupic.domain.FireUser
-import com.example.flupic.util.adapters.FeedRecyclerViewAdapter.ID.userUID
+import com.example.flupic.domain.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
+//todo norm suspend
 @Singleton
 class InsideRepository @Inject constructor(private val auth : FirebaseAuth,
                                            private val db : FirebaseFirestore,
@@ -108,7 +110,7 @@ class InsideRepository @Inject constructor(private val auth : FirebaseAuth,
         uri?.let {
 
             val imageRef = storage.reference.child("recipes/$postId/1.jpg")
-            var downloadURL : Uri? = null
+            val downloadURL : Uri?
 
             //Delete old photo
             try {
@@ -147,7 +149,7 @@ class InsideRepository @Inject constructor(private val auth : FirebaseAuth,
         uri?.let {
 
             val imageRef = storage.reference.child("users/${auth.uid}/avatar.jpg")
-            var downloadURL : Uri? = null
+            val downloadURL : Uri?
 
             //Delete old photo
             try {
@@ -168,9 +170,9 @@ class InsideRepository @Inject constructor(private val auth : FirebaseAuth,
         }
     }
 
-    suspend fun getDish(fireDish: MutableLiveData<FireDish>, accessId: String){
+    suspend fun getDish(fireDish: MutableLiveData<FireDish>, accessId: String, authorId: String = auth.uid.toString()){
 
-        val ref = db.collection("users").document(auth.uid.toString()).collection("posts").document(accessId)
+        val ref = db.collection("users").document(authorId).collection("posts").document(accessId)
         var dishSnapshot: DocumentSnapshot? = null
 
         try {
@@ -186,9 +188,9 @@ class InsideRepository @Inject constructor(private val auth : FirebaseAuth,
     }
 
 
-    suspend fun getRecipe(fireRecipe: MutableLiveData<FireRecipe>, accessId: String){
+    suspend fun getRecipe(fireRecipe: MutableLiveData<FireRecipe>, accessId: String, authorId: String = auth.uid.toString()){
 
-        val ref = db.collection("users").document(auth.uid.toString()).collection("posts").document(accessId)
+        val ref = db.collection("users").document(authorId).collection("posts").document(accessId)
             .collection("recipes").document("recipe")
         var recipeSnapshot: DocumentSnapshot? = null
 
@@ -204,9 +206,9 @@ class InsideRepository @Inject constructor(private val auth : FirebaseAuth,
         }
     }
 
-    suspend fun like(accessId: String){
+    suspend fun like(accessId: String, authorId: String = auth.uid.toString()){
 
-        val ref = db.collection("users").document(auth.uid.toString()).collection("posts").document(accessId)
+        val ref = db.collection("users").document(authorId).collection("posts").document(accessId)
 
         try {
             val documentSnapshot = ref.get().await()
@@ -223,6 +225,90 @@ class InsideRepository @Inject constructor(private val auth : FirebaseAuth,
             }
         }catch (e: Exception){
             Log.e(TAG,"like() : ${e.message}")
+        }
+    }
+
+    //todo
+    suspend fun subscribe(subUserUID: String, curState: Boolean): Boolean?{
+        val userRef = db.collection("users").document(auth.uid.toString())
+        val subUserRef = db.collection("users").document(subUserUID)
+
+        return try {
+            if(curState){
+                userRef.update("following", FieldValue.arrayRemove(subUserUID)).await()
+                subUserRef.update("followers", FieldValue.arrayRemove(auth.uid.toString())).await()
+                false
+            }else{
+                userRef.update("following", FieldValue.arrayUnion(subUserUID)).await()
+                subUserRef.update("followers", FieldValue.arrayUnion(auth.uid.toString())).await()
+                true
+            }
+        }catch (e: Exception){
+            Log.e(TAG,"subscribe() : ${e.message}")
+            null
+        }
+    }
+
+    //todo
+    suspend fun isSubscribed(subUserUID: String): Boolean?{
+
+        val userRef = db.collection("users").document(auth.uid.toString())
+
+        try {
+                userRef.get().await().toObject(FireUser::class.java)?.following?.let {
+                    return it.contains(subUserUID)
+            }
+        }catch (e: Exception){
+            Log.e(TAG,"isSubscribed() : ${e.message}")
+        }
+
+        return null
+    }
+
+
+    suspend fun loadFeed(): List<FlupicDish>?{
+
+        val usersRef = db.collection("users")
+        val followersRef = db.collectionGroup("users").whereArrayContains("followers", auth.uid.toString())
+
+        return try {
+            coroutineScope {
+                withContext(Dispatchers.IO){
+
+                    val usersSnapshots = followersRef.get().await()
+                    val usersIds = withContext(Dispatchers.Main){
+                        usersSnapshots.documents.map {
+                            it.id
+                        }
+                    }
+
+                    val fireDishesList: MutableList<DocumentSnapshot> = mutableListOf()
+
+                    for(userId in usersIds){
+                        val usersPosts = usersRef.document(userId).collection("posts").get().await()
+                        withContext(Dispatchers.Main){
+                            fireDishesList.addAll((usersPosts.documents))
+                        }
+                    }
+
+                    var dishesList: List<FlupicDish?>?
+
+                    withContext(Dispatchers.Main){
+                        dishesList = fireDishesList.map {
+                            val fireDishe = it.toObject(FireDish::class.java) ?: return@map null
+                            FlupicDish(fireDishe, it.id, it.reference.parent.parent!!.id)
+                        }
+
+                        val dishes = dishesList?.filterNotNull()
+
+                        dishes?.sorted()
+                        dishes?.reversed()
+                    }
+                }
+            }
+        }catch (e: Exception){
+            Log.e(TAG,"loadFeed() : ${e.message}")
+            null
         }
     }
 }

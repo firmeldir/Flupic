@@ -28,24 +28,22 @@ class DetailViewModel @Inject constructor(val insideRepository: InsideRepository
     //Recipe
     private val _recipe: MutableLiveData<FireRecipe> = MutableLiveData()
     val recipe: LiveData<FireRecipe>
-        get(){
-            Log.i(TAG, "H ${_recipe.value}")
-            return _recipe
-        }
-
-    var accessId : String = ""
-        private set
+        get() = _recipe
 
 
-    fun loadInfoById(accessId :  String){
-        this.accessId = accessId
-        getDetailData()
+    fun loadInfoById(accessId :  String, authorId: String){
+        getDetailData(accessId, authorId)
     }
 
-    fun getDetailData(){
+    private fun getDetailData(accessId :  String, authorId: String){
         coroutineScope.launch {
-            insideRepository.getDish(_dish, accessId)
-            insideRepository.getRecipe(_recipe, accessId)
+            if(authorId == "default"){
+                insideRepository.getDish(_dish, accessId)
+                insideRepository.getRecipe(_recipe, accessId)
+            }else{
+                insideRepository.getDish(_dish, accessId, authorId)
+                insideRepository.getRecipe(_recipe, accessId, authorId)
+            }
         }
     }
 

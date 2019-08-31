@@ -86,5 +86,11 @@
         <item name="fontFamily">@font/nunito</item>
         <item name="android:textColor">@color/colorOnSecond</item>
     </style>
+
+    <style name="TextAppearance.Flupic.Warning" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:textSize">16dp</item>
+        <item name="fontFamily">@font/nunito</item>
+        <item name="android:textColor">@color/colorOnSecond</item>
+    </style>
     
 </resources>

@@ -47,7 +47,8 @@ class detailFragment : DaggerFragment() {
         ViewModelProviders.of(this, injectFactory).get(DetailViewModel::class.java)
     }
 
-    lateinit var accessId : String
+    private lateinit var accessId : String
+    private lateinit var authorId : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,9 +61,11 @@ class detailFragment : DaggerFragment() {
     ): View? {
         binding = FragmentDetailBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-        accessId = detailFragmentArgs.fromBundle(arguments!!).accesId
 
-        detailViewModel.loadInfoById(accessId)
+        accessId = detailFragmentArgs.fromBundle(arguments!!).accesId
+        authorId = detailFragmentArgs.fromBundle(arguments!!).authorId
+
+        detailViewModel.loadInfoById(accessId, authorId)
 
         setupViewPager()
 

@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Flupic</string>
+    <string name="google_map_api_key">AIzaSyCPQobIIg0OzCLXtqiIVWc_22JhfyuRYLo</string>
+    <string name="default_userUID">0</string>
 
     <string name="feed">Feed</string>
     <string name="cooking_time">Cooking time</string>
@@ -59,4 +61,21 @@
     <string name="time_for_cooking">Time for cooking</string>
     <string name="people_per_service">People per service</string>
     <string name="by">by</string>
+    <string name="our_bakeries_around">Our bakeries around</string>
+    <string name="our_masters_around">Our masters around</string>
+    <string name="business_location">Business location</string>
+    <string name="phone">Phone</string>
+    <string name="category">Category</string>
+    <string name="set_your_business_location">Set your business location</string>
+    <string name="are_you_sure_you_want_to_set_this_location_as_a_business_location">Are you sure you want to set this
+        location as a business location?
+    </string>
+    <string name="yes">Yes</string>
+    <string name="reload_location">Reload location</string>
+    <string name="no">No</string>
+
+    <string name="subscribe">Subscribe</string>
+    <string name="unsubscribe">UnSubscribe</string>
+
+
 </resources>

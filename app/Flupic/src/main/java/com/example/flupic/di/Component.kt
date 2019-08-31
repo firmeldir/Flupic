@@ -17,7 +17,10 @@ import dagger.android.ContributesAndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 import androidx.lifecycle.ViewModel
+import com.example.flupic.di.module.MapModule
+import com.example.flupic.ui.dialogue.businessLocationDialogueFragment
 import com.example.flupic.ui.inside.*
+import com.example.flupic.ui.map.mapFragment
 import com.example.flupic.viewmodels.*
 import dagger.MapKey
 import dagger.multibindings.IntoMap
@@ -73,7 +76,7 @@ abstract class FragmentBuildersModule{
             @ContributesAndroidInjector
             abstract fun contributeFeedFragment(): feedFragment
 
-            @ContributesAndroidInjector
+            @ContributesAndroidInjector(modules = [MapModule::class])
             abstract fun contributeEditFragment(): editFragment
 
             @ContributesAndroidInjector
@@ -85,6 +88,14 @@ abstract class FragmentBuildersModule{
             @ContributesAndroidInjector
             abstract fun contributeDetailFragment(): detailFragment
 
+            @ContributesAndroidInjector(modules = [MapModule::class])
+            abstract fun contributeBDialogueFragment(): businessLocationDialogueFragment
+
+            @ContributesAndroidInjector(modules = [MapModule::class])
+            abstract fun contributeMapFragment(): mapFragment
+
+            @ContributesAndroidInjector
+            abstract fun contributeOwnPublFragment(): ownPublFragment
 }
 
         //ViewModels and there Factory-----------------------------------------------------------------
@@ -123,6 +134,11 @@ abstract class ViewModulsModule {
                 @IntoMap
                 @ViewModelKey(FeedViewModel::class)
                 abstract fun bindFeedViewModel(feedViewModel: FeedViewModel): ViewModel
+
+                @Binds
+                @IntoMap
+                @ViewModelKey(MapViewModel::class)
+                abstract fun bindMapViewModel(mapViewModel: MapViewModel): ViewModel
             }
 //-----------------------------------------------------------------------------------------------------
 
