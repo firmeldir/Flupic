@@ -1,81 +1,9 @@
 <resources>
+
     <string name="app_name">Flupic</string>
-    <string name="google_map_api_key">AIzaSyCPQobIIg0OzCLXtqiIVWc_22JhfyuRYLo</string>
-    <string name="default_userUID">0</string>
 
-    <string name="feed">Feed</string>
-    <string name="cooking_time">Cooking time</string>
-    <string name="account">Account</string>
-    <string name="log_in">LOG IN</string>
-    <string name="auth_sign_up">Don`t have an account?
-        <b>Sign up!</b>
-    </string>
-    <string name="sign_up">Sign up</string>
-    <string name="transitionName_title">main_title</string>
-    <string name="password">Password</string>
-    <string name="email">Email</string>
-    <string name="fullname">Fullname</string>
-    <string name="username">Username</string>
-    <string name="sign_up_to_join_our_cooking_community">Sign up to join our cooking community</string>
-    <string name="followers">Followers</string>
-    <string name="following">Following</string>
-
-    <string name="a_error_1">An error has occurred. Check your internet connection</string>
-    <string name="a_error_2">Password or email is not correct</string>
-    <string name="a_error_3">You have not verified your email</string>
-    <string name="a_error_4">This username already exists</string>
-    <string name="a_error_5">This email is wrong</string>
-    <string name="a_error_6">Enter all fields</string>
-    <string name="a_error_7">Name should not be blank</string>
-
-
-    <string-array name="category_list">
-        <item>Newbie</item>
-        <item>Confectioner</item>
-        <item>Amateur</item>
-    </string-array>
-
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="sign_out">Sign out</string>
-    <string name="edit_profile">Edit profile</string>
-    <string name="hange_profile_photo">Сhange profile photo</string>
-    <string name="your_name">Your name</string>
-    <string name="about_me">About me</string>
-    <string name="saved">SAVED</string>
-    <string name="own">OWN</string>
-    <string name="done">Done</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-    <string name="main_information">Main information</string>
-    <string name="your_yammy_name">Your yammy name</string>
-    <string name="add_photo">Add photo</string>
-    <string name="dish_description">Dish description</string>
-    <string name="add_step">Add step</string>
-    <string name="recipe">Recipe</string>
-    <string name="amount">Amount</string>
-    <string name="add_ingredient">Add ingredient</string>
-    <string name="ingedient_name">Ingedient name</string>
-    <string name="ingredients">Ingredients</string>
-    <string name="step_name">Step name</string>
-    <string name="step_description">Step description</string>
-    <string name="time_for_cooking">Time for cooking</string>
-    <string name="people_per_service">People per service</string>
-    <string name="by">by</string>
-    <string name="our_bakeries_around">Our bakeries around</string>
-    <string name="our_masters_around">Our masters around</string>
-    <string name="business_location">Business location</string>
-    <string name="phone">Phone</string>
-    <string name="category">Category</string>
-    <string name="set_your_business_location">Set your business location</string>
-    <string name="are_you_sure_you_want_to_set_this_location_as_a_business_location">Are you sure you want to set this
-        location as a business location?
-    </string>
-    <string name="yes">Yes</string>
-    <string name="reload_location">Reload location</string>
-    <string name="no">No</string>
-
-    <string name="subscribe">Subscribe</string>
-    <string name="unsubscribe">UnSubscribe</string>
 
 
 </resources>
