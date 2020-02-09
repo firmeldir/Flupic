@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+                name="viewModel"
+                type="com.example.flupic.ui.profile.UserProfileViewModel"/>
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <include android:id="@+id/appBar" layout="@layout/profile_appbar" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:onRefreshListener="@{() -> viewModel.onSwipeRefresh()}"
+                app:refreshing="@{viewModel.swipeRefreshing}">
+
+            <include android:id="@+id/info" layout="@layout/profile_info_user"/>
+
+            <include android:id="@+id/content" layout="@layout/profile_content"/>
+
+        </>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
+

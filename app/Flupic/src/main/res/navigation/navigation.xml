@@ -22,9 +22,9 @@
     </fragment>
     <fragment
             android:id="@+id/profileFragment"
-            android:name="com.example.flupic.ui.profile.ProfileFragment"
+            android:name="com.example.flupic.ui.profile.UserProfileFragment"
             android:label="fragment_profile"
-            tools:layout="@layout/fragment_profile" />
+            tools:layout="@layout/fragment_profile_user" />
     <fragment
             android:id="@+id/infoSupplyFragment"
             android:name="com.example.flupic.ui.auth.InfoSupplyFragment"

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:background="@android:color/white"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+            <TextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center|center_vertical"
+
+                    android:textSize="20sp"
+                    android:textColor="@android:color/black"
+
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp" />
+
+            <ImageView
+                    android:id="@+id/menuButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end"
+                    android:gravity="end"
+                    android:layout_marginEnd="8dp"
+                    android:scaleType="centerCrop"
+                    android:tint="@color/lightGrey"
+
+                    android:padding="12dp"
+                    android:src="@drawable/ic_menu_horizontal"/>
+
+            <ImageView
+                    android:id="@+id/discoverPeopleButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="start"
+                    android:gravity="start"
+                    android:layout_marginStart="8dp"
+                    android:scaleType="centerCrop"
+                    android:tint="@color/lightGrey"
+
+                    android:padding="10dp"
+                    android:src="@drawable/ic_discover_people" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+</FrameLayout>

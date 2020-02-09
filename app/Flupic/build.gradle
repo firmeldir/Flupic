@@ -106,14 +106,13 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:21.3.1'
     implementation 'com.google.firebase:firebase-storage:19.1.0'
 
-
     //Paging
     implementation 'android.arch.paging:runtime:1.0.1'
+    implementation 'com.firebaseui:firebase-ui-firestore:6.2.0'
 
     //Auth
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
-    implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
-    //TODO Check AndrX Version
+    implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1' //TODO Check AndrX Version
     implementation 'com.hbb20:ccp:2.3.7'
 }
 

@@ -1,4 +1,4 @@
-package com.example.flupic.data.user
+package com.example.flupic.data.users
 
 import android.net.Uri
 import com.example.flupic.model.User

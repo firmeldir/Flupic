@@ -1,7 +1,6 @@
-package com.example.flupic.data.user
+package com.example.flupic.data.users
 
 import android.net.Uri
-import android.util.Log
 import com.example.flupic.R
 import com.example.flupic.model.FireUser
 import com.example.flupic.model.User
@@ -87,7 +86,7 @@ class FirebaseUserManagementDataSource @Inject constructor(
         Unit
     }
 
-    override suspend fun setUserPhoto(uri: Uri) {
+    override suspend fun setUserPhoto(uri: Uri) = withContext(ioDispatcher){
 
         val currentU = auth.currentUser
         val phoneNumber = currentU?.phoneNumber

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools">
+
+        <FrameLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle_background"
+                android:elevation="5dp"
+
+                android:padding="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.1">
+
+            <ImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="132dp"
+                    android:layout_height="132dp" />
+
+        </FrameLayout>
+
+        <TextView
+                android:id="@+id/fullname_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+
+                android:text=""
+                android:ellipsize="end"
+                android:gravity="center_horizontal"
+                android:singleLine="true"
+                android:textSize="22sp"
+                android:textColor="#000"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+
+                tools:text="Loria Sab"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                style="@style/Widget.MaterialComponents.FloatingActionButton"
+                android:id="@+id/edit_profile_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:elevation="2dp"
+                app:borderWidth="0dp"
+                app:fabCustomSize="40dp"
+                app:maxImageSize="14dp"
+                app:srcCompat="@drawable/ic_edit_profile"
+
+                android:backgroundTint="#FFFFFF"
+                app:rippleColor="#FFFFFF"
+                app:tint="#000000"
+
+                app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+                app:layout_constraintEnd_toStartOf="@+id/frameLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/frameLayout" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                style="@style/Widget.MaterialComponents.FloatingActionButton"
+                android:id="@+id/messages_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:elevation="2dp"
+                app:borderWidth="0dp"
+                app:fabCustomSize="40dp"
+                app:maxImageSize="14dp"
+                app:srcCompat="@drawable/ic_user_chats"
+
+                android:backgroundTint="#FFFFFF"
+                app:rippleColor="#FFFFFF"
+                app:tint="#000000"
+
+                app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+                app:layout_constraintStart_toEndOf="@+id/frameLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/frameLayout" />
+
+
+        <com.github.florent37.shapeofview.shapes.RoundRectView
+                android:id="@+id/followers_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fullname_text"
+                android:layout_marginTop="24dp"
+
+                app:shape_roundRect_bottomLeftRadius="2dp"
+                app:shape_roundRect_bottomRightRadius="2dp"
+                app:shape_roundRect_topLeftRadius="2dp"
+                app:shape_roundRect_topRightRadius="2dp">
+
+            <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:orientation="vertical"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingBottom="4dp"
+                    android:paddingTop="4dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="21dp"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
+                        tools:text="6147"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="21dp"
+                        android:gravity="center"
+                        android:textColor="@color/lightGrey"
+                        android:text="@string/followers"/>
+
+            </LinearLayout>
+
+        </com.github.florent37.shapeofview.shapes.RoundRectView>
+
+        <com.github.florent37.shapeofview.shapes.RoundRectView
+                android:id="@+id/following_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="4dp"
+                app:layout_constraintStart_toEndOf="@+id/followers_button"
+                app:layout_constraintTop_toTopOf="@+id/followers_button"
+                app:shape_roundRect_bottomLeftRadius="2dp"
+                app:shape_roundRect_bottomRightRadius="2dp"
+                app:shape_roundRect_topLeftRadius="2dp"
+                app:shape_roundRect_topRightRadius="2dp">
+
+            <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:orientation="vertical"
+                    android:paddingLeft="4dp"
+                    android:paddingTop="4dp"
+                    android:paddingRight="4dp"
+                    android:paddingBottom="4dp">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="21dp"
+                        android:gravity="center"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        tools:text="2764" />
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="21dp"
+                        android:gravity="center"
+                        android:text="@string/following"
+                        android:textColor="@color/lightGrey" />
+
+            </LinearLayout>
+
+        </com.github.florent37.shapeofview.shapes.RoundRectView>
+
+        <com.github.florent37.shapeofview.shapes.RoundRectView
+                android:id="@+id/posts_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginEnd="4dp"
+                app:layout_constraintEnd_toStartOf="@+id/followers_button"
+                app:layout_constraintTop_toTopOf="@+id/followers_button"
+                app:shape_roundRect_bottomLeftRadius="2dp"
+                app:shape_roundRect_bottomRightRadius="2dp"
+                app:shape_roundRect_topLeftRadius="2dp"
+                app:shape_roundRect_topRightRadius="2dp">
+
+            <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:orientation="vertical"
+                    android:paddingLeft="4dp"
+                    android:paddingTop="4dp"
+                    android:paddingRight="4dp"
+                    android:paddingBottom="4dp">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="21dp"
+                        android:gravity="center"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:text="213"
+                        tools:text="213" />
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="21dp"
+                        android:gravity="center"
+                        android:text="@string/posts"
+                        android:textColor="@color/lightGrey" />
+
+            </LinearLayout>
+
+        </com.github.florent37.shapeofview.shapes.RoundRectView>
+
+        <TextView
+                android:id="@+id/bio_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+
+                android:maxLines="4"
+                android:gravity="center_vertical"
+                android:textSize="14sp"
+                android:textColor="#000000"
+
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/following_button"
+                app:layout_constraintStart_toStartOf="@+id/posts_button"
+                app:layout_constraintTop_toBottomOf="@+id/followers_button"
+
+                tools:text="| Khmelnytskyy\n| love basketbаll\n| dreamy person\n| do not forget to subscribe↗"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+

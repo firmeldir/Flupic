@@ -4,8 +4,10 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import com.example.flupic.BaseApplication
+import com.example.flupic.data.AppDatabase
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 @Module
 class AppModule {
@@ -18,4 +20,7 @@ class AppModule {
     @Provides
     fun providesApplication(context: Context): Application = context as Application
 
+    @Singleton
+    @Provides
+    fun providesAppDatabase(context: Context): AppDatabase = AppDatabase.buildDatabase(context)
 }

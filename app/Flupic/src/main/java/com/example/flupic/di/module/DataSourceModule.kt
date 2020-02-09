@@ -2,8 +2,8 @@ package com.example.flupic.di.module
 
 import com.example.flupic.data.auth.AuthUserDataSource
 import com.example.flupic.data.auth.FirebaseAuthUserDataSource
-import com.example.flupic.data.user.FirebaseUserManagementDataSource
-import com.example.flupic.data.user.UserManagementDataSource
+import com.example.flupic.data.users.FirebaseUserManagementDataSource
+import com.example.flupic.data.users.UserManagementDataSource
 import com.example.flupic.util.ExternalStoragePickPhotoViewModelDelegate
 import com.example.flupic.util.PickPhotoViewModelDelegate
 import com.google.firebase.auth.FirebaseAuth

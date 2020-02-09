@@ -11,7 +11,7 @@ import com.example.flupic.di.viewmodel.ViewModelFactoryModule
 import com.example.flupic.ui.activity.LaunchActivity
 import com.example.flupic.ui.activity.MainActivity
 import com.example.flupic.ui.auth.InfoSupplyFragment
-import com.example.flupic.ui.profile.ProfileFragment
+import com.example.flupic.ui.profile.UserProfileFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -31,7 +31,7 @@ interface AppComponent {
     fun inject(activity: LaunchActivity)
 
     fun inject(fragment: InfoSupplyFragment)
-    fun inject(fragment: ProfileFragment)
+    fun inject(fragment: UserProfileFragment)
 
     fun authComponent(): AuthComponent.Factory
 
