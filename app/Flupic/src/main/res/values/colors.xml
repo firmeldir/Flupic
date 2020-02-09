@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="primaryColor">#fce4ec</color>
+    <color name="primaryColor">#F12151</color>
     <color name="primaryLightColor">#ffffff</color>
     <color name="primaryDarkColor">#c9b2ba</color>
     <color name="secondaryColor">#fff9c4</color>
@@ -12,5 +12,7 @@
 
     <color name="colorAuth">#965735</color>
     <color name="backAlphaWhite">#6BFFFFFF</color>
+    
+    <color name="lightGrey">#AEAFB3</color>
 
 </resources>

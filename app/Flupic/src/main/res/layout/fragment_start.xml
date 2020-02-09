@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.auth.StartFragment">
+
+
+        <ImageView
+                android:id="@+id/appIconImage"
+                android:layout_width="144dp"
+                android:layout_height="144dp"
+
+                app:srcCompat="@drawable/ic_muzzly_logo"
+
+                app:layout_constraintBottom_toTopOf="@+id/startButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.35" />
+
+        <Button
+                android:id="@+id/startButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="64dp"
+
+                android:textColor="@android:color/white"
+                android:text="Start sharing"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+                android:id="@+id/appTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+
+                android:text="Muzzly"
+                android:textColor="@android:color/black"
+                android:textSize="28sp"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appIconImage" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+

@@ -1,29 +1,27 @@
 package com.example.flupic.di.module
 
-
-import android.app.Application
-import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.storage.FirebaseStorage
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class ApplicationModule{
+class FirebaseModule {
 
     @Singleton
     @Provides
-    fun provideApplicationContext(application: Application): Context = application
+    fun provideFirebaseFireStore(): FirebaseFirestore = FirebaseFirestore.getInstance().apply {
+        firestoreSettings = FirebaseFirestoreSettings.Builder()
+            .setPersistenceEnabled(true)
+            .build()
+    }
 
     @Singleton
     @Provides
     fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
-
-    @Singleton
-    @Provides
-    fun provideFirebaseFirestore(): FirebaseFirestore = FirebaseFirestore.getInstance()
 
     @Singleton
     @Provides

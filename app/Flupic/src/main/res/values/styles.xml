@@ -18,4 +18,14 @@
 
     </style>
 
+
+
+    <style name="Flupic.Launch">
+        <item name="android:windowBackground">@drawable/launch_screen</item>
+        <item name="android:colorPrimary">@color/primaryLightColor</item>
+        <item name="colorPrimary">@color/primaryLightColor</item>
+        <item name="android:colorPrimaryDark">@color/primaryLightColor</item>
+        <item name="colorPrimaryDark">@color/primaryLightColor</item>
+    </style>
+
 </resources>

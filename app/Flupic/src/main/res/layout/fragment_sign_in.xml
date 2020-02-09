@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.auth.SignInFragment">
+
+
+        <ImageView
+                android:id="@+id/appIconImage"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintDimensionRatio="w,1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/hint"
+                app:layout_constraintTop_toTopOf="@+id/hint"
+                app:srcCompat="@drawable/ic_main_icon" />
+
+        <TextView
+                android:id="@+id/hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+
+                android:text="What`s your number?"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+                android:id="@+id/specification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+
+                android:text="We`ll text a code to verify your phone"
+                android:textSize="12sp"
+
+                app:layout_constraintStart_toStartOf="@+id/hint"
+                app:layout_constraintTop_toBottomOf="@+id/hint" />
+
+        <com.hbb20.CountryCodePicker
+                android:id="@+id/countryCodePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                app:ccp_textSize="12sp"
+
+                app:layout_constraintBottom_toBottomOf="@+id/phoneLayout"
+                app:layout_constraintStart_toStartOf="@+id/hint"
+                app:layout_constraintTop_toTopOf="@+id/phoneLayout" />
+
+        <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/phoneLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="@+id/appIconImage"
+                app:layout_constraintStart_toEndOf="@+id/countryCodePicker"
+                app:layout_constraintTop_toBottomOf="@+id/appIconImage">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phoneNumberInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+                android:id="@+id/nextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+
+                android:text="Next"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+

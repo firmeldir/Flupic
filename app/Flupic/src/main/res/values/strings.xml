@@ -2,8 +2,35 @@
 
     <string name="app_name">Flupic</string>
 
+    <string name="verifying" translation_description="Progress dialog text while phone number is being verified">Verifying…</string>
+
+    <!--  Auth Flow Messages  -->
+    <string name="automatically_verified_number">Phone number automatically verified</string>
+
+    <!--  Auth Errors  -->
+    <string name="invalid_phone_number" translation_description="Inline error when phone number entered is invalid">Enter a valid phone number</string>
+    <string name="error_too_many_attempts" translation_description="Error message when the phone number has been used too many times">This phone number has been used too many times</string>
+    <string name="error_quota_exceeded" translation_description="Error message when the Firebase project's quota has been exceeded.">There was a problem verifying your phone number</string>
+    <string name="incorrect_code_dialog_body" translation_description="Inline error when incorrect sms verification code is being used to verify">Wrong code. Try again.</string>
+    <string name="error_session_expired" translation_description="Error message when SMS confirmation code has expired.">This code is no longer valid</string>
+
+    <string name="encapsulated_error">An authorization error occurred. Please try again</string>
+    <string name="resend_code">Resend code in 0:%02d</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+
+    <!--  Data Errors  -->
+    <string name="not_valid_value">Is not valid value</string>
+    <string name="username_already_exist">This username already exists, please try another</string>
+    <string name="error_while_uploading_photo">There was a problem uploading your photo</string>
+
+
+    <!--  Profile  -->
+    <string name="followers">followers</string>
+    <string name="following">following</string>
+    <string name="posts">posts</string>
+    <string name="username">username</string>
 
 </resources>

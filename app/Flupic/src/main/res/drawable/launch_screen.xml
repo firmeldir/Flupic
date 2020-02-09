@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Атрибут android:opacity=”opaque” крайне важен для предотвращения черных миганий при переходе к вашей теме -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
+
+    <!-- Цвет фона, предпочтительно как в главной теме -->
+    <item android:drawable="@android:color/white"/>
+
+
+    <!-- Лого приложения - 144dp версия иконки приложения -->
+
+    <!-- @drawable/splash_image — это bitmap с версиями под все поддерживаемые DPI, векторы не заработают нормально до API-23 -->
+
+    <item android:drawable="@drawable/ic_muzzly_logo" android:height="90dp" android:width="90dp" android:gravity="center"/>
+
+</layer-list>
