@@ -5,6 +5,7 @@ import com.example.flupic.di.subcomponent.AuthScope
 import com.example.flupic.ui.activity.LaunchActivityViewModel
 import com.example.flupic.ui.activity.MainViewModel
 import com.example.flupic.ui.auth.InfoSupplyViewModel
+import com.example.flupic.ui.profile.UserProfileViewModel
 import com.example.flupic.util.handler.PhoneNumberVerificationHandler
 import com.example.flupic.util.handler.PhoneProviderResponseHandler
 import com.example.flupic.util.handler.SmartLockHandler
@@ -29,4 +30,9 @@ internal abstract class AppViewModelModule {
     @IntoMap
     @ViewModelKey(InfoSupplyViewModel::class)
     internal abstract fun bindInfoSupplyViewModel(viewmodel: InfoSupplyViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(UserProfileViewModel::class)
+    internal abstract fun bindUserProfileViewModel(viewmodel: UserProfileViewModel): ViewModel
 }

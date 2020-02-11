@@ -1,10 +1,14 @@
 package com.example.flupic.util
 
+import android.graphics.drawable.Drawable
+import android.net.Uri
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
@@ -13,8 +17,10 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.*
 import coil.api.load
 import coil.transform.CircleCropTransformation
+import com.example.flupic.model.User
 import com.example.flupic.result.Event
 import com.example.flupic.result.EventObserver
+import com.example.flupic.result.Result
 import com.example.flupic.util.view.FadingSnackbar
 import com.example.flupic.util.view.SnackbarMessage
 import com.example.flupic.util.view.SnackbarMessageManager
@@ -161,11 +167,33 @@ fun <A, B, Result> LiveData<A>.combine(
     return result
 }
 
-@BindingAdapter("setCircleImageByUrl")
-fun ImageView.setCircleImageByUrl(photoUrl: String?)
+fun <A> LiveData<Result<A>>.uniteSuccessResults(
+    other: LiveData<Result<A>>
+): LiveData<A> {
+    val result = MediatorLiveData<A>()
+
+    result.addSource(this) { a ->
+        if(a is Result.Success)
+            result.postValue(a.data)
+    }
+    result.addSource(other) { b ->
+        if(b is Result.Success)
+            result.postValue(b.data)
+    }
+    return result
+}
+
+@BindingAdapter(value = ["setCircleImageByUrl", "placeholder"], requireAll = false)
+fun ImageView.setCircleImageByUrl(photoUrl: String?, placeholder: Drawable?)
 {
     if(!photoUrl.isNullOrEmpty()){
         this.load(photoUrl) {
+            crossfade(true)
+            transformations(CircleCropTransformation())
+            placeholder(placeholder)
+        }
+    }else{
+        this.load(placeholder) {
             crossfade(true)
             transformations(CircleCropTransformation())
         }
@@ -174,6 +202,19 @@ fun ImageView.setCircleImageByUrl(photoUrl: String?)
 
 @BindingAdapter("onLoading")
 fun MaterialProgressBar.onLoading(boolean: Boolean?){
-    this.visibility = if(boolean == true) View.VISIBLE else View.INVISIBLE
+    this.visibility = if(boolean == true) View.VISIBLE else View.GONE
+}
+
+@BindingAdapter("disappearingText")
+fun TextView.disappearingText(string: String?){
+    this.visibility = if(string?.isEmpty() == true) View.GONE else View.VISIBLE
+}
+
+@BindingAdapter("nameElseUsername")
+fun TextView.nameElseUsername(user: User?){
+    if(user != null){
+        this.text = if(user.name.isEmpty())user.username
+        else user.name
+    }
 }
 

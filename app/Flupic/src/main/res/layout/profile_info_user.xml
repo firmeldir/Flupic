@@ -31,6 +31,8 @@
 
             <ImageView
                     android:id="@+id/profilePhoto"
+                    app:setCircleImageByUrl="@{viewModel.userProfile.photoUrl}"
+                    app:placeholder="@{@drawable/ic_empty_profile_photo}"
                     android:layout_width="132dp"
                     android:layout_height="132dp" />
 
@@ -42,12 +44,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
 
-                android:text=""
                 android:ellipsize="end"
                 android:gravity="center_horizontal"
                 android:singleLine="true"
                 android:textSize="22sp"
                 android:textColor="#000"
+                app:nameElseUsername="@{viewModel.userProfile}"
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -127,7 +129,7 @@
                         android:gravity="center"
                         android:textSize="16sp"
                         android:textColor="#000000"
-                        tools:text="6147"/>
+                        android:text="6147"/>
 
                 <TextView
                         android:layout_width="match_parent"
@@ -169,7 +171,7 @@
                         android:gravity="center"
                         android:textColor="#000000"
                         android:textSize="16sp"
-                        tools:text="2764" />
+                        android:text="2764" />
 
                 <TextView
                         android:layout_width="match_parent"
@@ -211,8 +213,7 @@
                         android:gravity="center"
                         android:textColor="#000000"
                         android:textSize="16sp"
-                        android:text="213"
-                        tools:text="213" />
+                        android:text="213"/>
 
                 <TextView
                         android:layout_width="match_parent"
@@ -235,6 +236,7 @@
                 android:gravity="center_vertical"
                 android:textSize="14sp"
                 android:textColor="#000000"
+                app:disappearingText="@{viewModel.userProfile.bio}"
 
                 android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="@+id/followingButton"

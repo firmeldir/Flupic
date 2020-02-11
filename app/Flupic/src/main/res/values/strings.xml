@@ -33,4 +33,8 @@
     <string name="posts">posts</string>
     <string name="username">username</string>
 
+    <!--  Profile Errors  -->
+    <string name="error_while_uploading_profile">Could not load profile. Check internet connection</string>
+    <string name="error_while_updating_profile">Could refresh profile. Check internet connection</string>
+
 </resources>

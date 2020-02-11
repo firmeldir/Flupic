@@ -65,17 +65,6 @@ class FirebaseUsersRepository @Inject constructor(
             snapshot[PHONE_NUMBER] as? String ?: ""
         )
 
-
-    override fun getUserContentQuery() : Query{
-        val uid = auth.uid
-        if(uid.isNullOrEmpty()) throw IllegalStateException("Non authenticated")
-
-        return getPeopleContentQueryByUid(uid)
-    }
-
-    override fun getPeopleContentQueryByUid(uid: String) : Query =
-        firestore.collection(USERS_COLLECTION).document(uid).collection(POSTS_COLLECTION).orderBy(DATE)
-
     companion object{
         private const val TAG = "TAG UsersRepository"
 

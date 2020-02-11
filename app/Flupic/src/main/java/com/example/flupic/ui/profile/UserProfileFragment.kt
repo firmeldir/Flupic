@@ -9,9 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.flupic.BaseApplication
 import com.example.flupic.databinding.FragmentProfileUserBinding
 import com.example.flupic.model.Post
+import com.example.flupic.util.setUpSnackbar
+import com.example.flupic.util.view.SnackbarMessageManager
 import com.example.flupic.util.viewModelProvider
 import com.firebase.ui.firestore.paging.FirestorePagingOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -24,16 +27,11 @@ class UserProfileFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    @Inject
+    lateinit var snackbarMessageManager: SnackbarMessageManager
+
     private lateinit var profileViewModel: UserProfileViewModel
     private lateinit var binding: FragmentProfileUserBinding
-
-
-    //TODO DELETE
-    @Inject
-    lateinit var firestore: FirebaseFirestore
-
-    @Inject
-    lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +45,7 @@ class UserProfileFragment : Fragment() {
             .apply {
                 lifecycleOwner = viewLifecycleOwner
                 viewModel = profileViewModel
+                info.viewModel = profileViewModel
             }
 
         setupUI()
@@ -55,14 +54,15 @@ class UserProfileFragment : Fragment() {
     }
 
     private fun setupUI(){
+
+        setUpSnackbar(profileViewModel.snackBarMessage, binding.snackbar, snackbarMessageManager)
+
         setupPosts()
     }
 
     private fun setupPosts(){ with(binding.content.postsRecyclerView){
         layoutManager = GridLayoutManager(context!!, 2)
         setHasFixedSize(true)
-
-
     }
     }
 

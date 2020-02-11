@@ -4,10 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.flupic.result.Result
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 
 /**
@@ -28,23 +25,25 @@ abstract class UseCase<in P, R> {
     operator fun invoke(parameters: P, result: MutableLiveData<Result<R>>, scope: CoroutineScope = GlobalScope) {
         result.value = Result.Loading //TODO: add data to Result.Loading to avoid glitches
         try {
-            scope.launch {
+            scope.launch { withContext(Dispatchers.Default) {
                 try {
-                    async { execute(parameters) }.await().let { useCaseResult ->
-                        result.postValue(Result.Success(useCaseResult))
-                    }
+                    result.postValue(Result.Success(execute(parameters)))
+
                 } catch (e: Exception) {
                     Log.e(TAG, e.message.toString())
+
                     result.postValue(Result.Error(e))
                 }
             }
+            }
         } catch (e: Exception) {
             Log.e(TAG, e.message.toString())
+
             result.postValue(Result.Error(e))
         }
     }
 
-    /** Executes the use case asynchronously and returns a [Result] in a new LiveData object.
+    /** Executes the use case asynchronously and returnsx a [Result] in a new LiveData object.
      *
      * @return an observable [LiveData] with a [Result].
      *

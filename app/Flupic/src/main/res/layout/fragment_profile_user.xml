@@ -25,7 +25,23 @@
 
             <include android:id="@+id/content" layout="@layout/profile_content"/>
 
-        </>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <com.example.flupic.util.view.FadingSnackbar
+                android:id="@+id/snackbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginEnd="32dp"
+                android:visibility="gone"
+                app:layout_dodgeInsetEdges="bottom" />
+
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+                android:id="@+id/loadProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:onLoading="@{viewModel.isLoading()}" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
