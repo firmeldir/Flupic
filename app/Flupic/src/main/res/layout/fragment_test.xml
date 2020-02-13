@@ -20,16 +20,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.8" />
 
-        <Switch
-                android:id="@+id/launched"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
-                android:text="Is launched? "
-                app:layout_constraintBottom_toTopOf="@+id/launchButton"
-                app:layout_constraintEnd_toEndOf="@+id/launchButton"
-                app:layout_constraintStart_toStartOf="@+id/launchButton" />
-
         <Button
                 android:id="@+id/stopButton"
                 android:layout_width="wrap_content"
@@ -39,6 +29,16 @@
                 app:layout_constraintEnd_toEndOf="@+id/launchButton"
                 app:layout_constraintStart_toStartOf="@+id/launchButton"
                 app:layout_constraintTop_toBottomOf="@+id/launchButton" />
+
+        <TextView
+                android:id="@+id/launched"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:text="Off"
+                app:layout_constraintBottom_toTopOf="@+id/launchButton"
+                app:layout_constraintEnd_toEndOf="@+id/launchButton"
+                app:layout_constraintStart_toStartOf="@+id/launchButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

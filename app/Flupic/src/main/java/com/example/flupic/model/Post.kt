@@ -1,9 +1,10 @@
 package com.example.flupic.model
 
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.DocumentId
 
 data class Post (
-    val id: String,
+    @DocumentId val id: String,
     val title: String,
     val photoUrl: String,
     val date: Timestamp
@@ -12,5 +13,6 @@ data class Post (
 data class FirePost (
     val title: String = "",
     val photoUrl: String = "",
-    val date: Timestamp? = null
+    val date: Timestamp? = null,
+    @DocumentId val id: String = ""
 )

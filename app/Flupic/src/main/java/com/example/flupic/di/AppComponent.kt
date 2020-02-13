@@ -8,6 +8,8 @@ import com.example.flupic.di.subcomponent.AppSubcomponents
 import com.example.flupic.di.subcomponent.AuthComponent
 import com.example.flupic.di.viewmodel.AppViewModelModule
 import com.example.flupic.di.viewmodel.ViewModelFactoryModule
+import com.example.flupic.scrobbler.di.MusicSharingModule
+import com.example.flupic.scrobbler.service.MusicSharingService
 import com.example.flupic.ui.activity.LaunchActivity
 import com.example.flupic.ui.activity.MainActivity
 import com.example.flupic.ui.auth.InfoSupplyFragment
@@ -24,7 +26,9 @@ import javax.inject.Singleton
     AppModule::class,
     AppViewModelModule::class,
     AppSubcomponents::class,
-    ViewModelFactoryModule::class
+    ViewModelFactoryModule::class,
+
+    MusicSharingModule::class
 ])
 interface AppComponent {
 
@@ -34,6 +38,8 @@ interface AppComponent {
     fun inject(fragment: InfoSupplyFragment)
     fun inject(fragment: UserProfileFragment)
     fun inject(fragment: TestFragment)
+
+    fun inject(service: MusicSharingService)
 
     fun authComponent(): AuthComponent.Factory
 

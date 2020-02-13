@@ -114,8 +114,11 @@ dependencies {
     //Auth
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
-    //TODO Check AndrX Version
-    implementation 'com.hbb20:ccp:2.3.7'
+    implementation 'com.hbb20:ccp:2.3.7'     //TODO : Check AndroidX Version
+
+    //Location
+    implementation "com.google.android.gms:play-services-location:17.0.0"
+    implementation 'com.github.imperiumlabs:GeoFirestore-Android:v1.5.0'        //TODO : Rewrite to own hashing code
 }
 
 apply plugin: 'com.google.gms.google-services'

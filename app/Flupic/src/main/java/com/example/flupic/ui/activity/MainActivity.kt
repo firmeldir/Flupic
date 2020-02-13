@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(){
         val navGraph = navController.navInflater.inflate(R.navigation.navigation)
 
         val destination = when(intent.getSerializableExtra(LAUNCH_DESTINATION)){
-            LaunchDestination.APPLICATION -> R.id.profileFragment
+            LaunchDestination.APPLICATION -> R.id.testFragment  //TODO : PROFILE
             LaunchDestination.FULLY_REGISTRATION -> R.id.infoSupplyFragment
             else -> R.id.authFragment
         }

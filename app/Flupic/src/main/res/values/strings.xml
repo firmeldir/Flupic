@@ -37,4 +37,11 @@
     <string name="error_while_uploading_profile">Could not load profile. Check internet connection</string>
     <string name="error_while_updating_profile">Could refresh profile. Check internet connection</string>
 
+
+    <!--  Services  -->
+    <string name="nl_service">NLService</string>
+    <string name="nl_service_notification_title">Sharing music</string>
+    <string name="nl_service_notification_sub">Click to stop or disable in map</string>
+    <string name="notification_stop">STOP</string>
+
 </resources>

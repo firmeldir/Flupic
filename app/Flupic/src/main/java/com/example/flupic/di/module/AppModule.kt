@@ -5,6 +5,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import com.example.flupic.BaseApplication
 import com.example.flupic.data.AppDatabase
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -19,6 +21,10 @@ class AppModule {
 
     @Provides
     fun providesApplication(context: Context): Application = context as Application
+
+    @Provides
+    fun provideFusedLocationProviderClient(context: Context) : FusedLocationProviderClient
+            = LocationServices.getFusedLocationProviderClient(context)
 
     @Singleton
     @Provides
