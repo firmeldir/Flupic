@@ -5,19 +5,16 @@ import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.app.Service
 import android.content.pm.PackageManager
 import android.location.Location
-import android.media.MediaMetadata
 import android.media.session.PlaybackState
 import android.util.Log
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.flupic.result.Event
-import com.example.flupic.scrobbler.model.ControllerMusicMetadata
-import com.example.flupic.scrobbler.model.toControllerMusicMetadata
 import com.example.flupic.util.exception.LocationAccessType
 import com.example.flupic.util.exception.RequestLocationAccessException
 import com.google.firebase.firestore.GeoPoint
-import java.lang.Exception
+import org.imperiumlabs.geofirestore.GeoLocation
+import org.imperiumlabs.geofirestore.core.GeoHash
 
 fun Service.checkLocationPermissionAccess(error: MutableLiveData<Event<Exception>>?) : Boolean{
 
@@ -46,4 +43,7 @@ fun Service.checkLocationPermissionAccess(error: MutableLiveData<Event<Exception
 
 fun Location.toGeoPoint() = GeoPoint(this.latitude, this.longitude)
 
-fun PlaybackState?.isActive() = this?.state != 1 && this?.state != 2 && this != null
+fun Location.toGeoHashString() = GeoHash(GeoLocation(this.latitude, this.longitude)).geoHashString
+
+fun PlaybackState.isActive() = (this.state != 1 && this.state != 2)
+

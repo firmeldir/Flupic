@@ -1,16 +1,19 @@
 package com.example.flupic.scrobbler.data
 
+import android.location.Location
 import android.media.MediaMetadata
 import android.media.session.MediaController
-import android.media.session.PlaybackState
 import android.util.Log
-import com.example.flupic.scrobbler.model.ControllerMusicMetadata
-import com.example.flupic.scrobbler.model.toControllerMusicMetadata
 import com.example.flupic.scrobbler.util.isActive
+import com.example.flupic.scrobbler.util.toGeoHashString
+import com.example.flupic.scrobbler.util.toGeoPoint
+import java.io.Serializable
 
-class SharedMusicUpdateMap private constructor(val updateMap: Map<String, Any>){
+class SharedMusicUpdateParameters private constructor(val updateMap: Map<String, Any>){
 
     companion object{
+
+        private const val TAG = "TAG SMUpdateMap"
 
         private const val TITLE = "title"
         private const val ARTIST = "artist"
@@ -21,7 +24,8 @@ class SharedMusicUpdateMap private constructor(val updateMap: Map<String, Any>){
         private const val GEO_HASH = "g"
         private const val IS_ACTIVE= "isActive"
 
-        fun from(mediaMetadata : MediaMetadata) : SharedMusicUpdateMap?{
+        fun from(mediaMetadata : MediaMetadata?) : SharedMusicUpdateParameters?{
+            if(mediaMetadata == null)return null
 
             val title: String = try {
                 mediaMetadata.getString(MediaMetadata.METADATA_KEY_TITLE)
@@ -35,11 +39,11 @@ class SharedMusicUpdateMap private constructor(val updateMap: Map<String, Any>){
                 mediaMetadata.getLong(MediaMetadata.METADATA_KEY_DURATION).toDouble()
             } catch (ignored: Exception) { 0.0 }
 
-            if(duration > 1200000){ Log.i(ControllerMusicMetadata.TAG, "duration > 1200000") ; return null}else {
+            if(duration > 1200000){ Log.i(TAG, "duration > 1200000") ; return null}else {
                 duration /= 1000
             }
 
-            return SharedMusicUpdateMap(
+            return SharedMusicUpdateParameters(
                 mapOf(
                     TITLE to title,
                     ARTIST to artist,
@@ -47,7 +51,9 @@ class SharedMusicUpdateMap private constructor(val updateMap: Map<String, Any>){
                 ))
         }
 
-        fun from(mediaController : MediaController) : SharedMusicUpdateMap?{
+        fun from(mediaController : MediaController?, location: Location?) : SharedMusicUpdateParameters?{
+            if(mediaController == null || location == null)return null
+
             val metadata = mediaController.metadata ?: return null
             val playbackState = mediaController.playbackState
 
@@ -63,7 +69,7 @@ class SharedMusicUpdateMap private constructor(val updateMap: Map<String, Any>){
                 metadata.getLong(MediaMetadata.METADATA_KEY_DURATION).toDouble()
             } catch (ignored: Exception) { 0.0 }
 
-            if(duration > 1200000){ Log.i(ControllerMusicMetadata.TAG, "duration > 1200000") ; return null}else {
+            if(duration > 1200000){ Log.i(TAG, "duration > 1200000") ; return null}else {
                 duration /= 1000
             }
 
@@ -71,42 +77,28 @@ class SharedMusicUpdateMap private constructor(val updateMap: Map<String, Any>){
 
             val player = mediaController.packageName
 
-            val isActive = playbackState.isActive()
+            val map = mutableMapOf<String, Any>(
+                TITLE to title,
+                ARTIST to artist,
+                DURATION to duration,
+                POSITION to position,
+                PLAYER to player,
+                LOCATION to location.toGeoPoint(),
+                GEO_HASH to location.toGeoHashString()
+            )
 
-            return SharedMusicUpdateMap(
-                mapOf(
-                    TITLE to title,
-                    ARTIST to artist,
-                    DURATION to duration,
-                    POSITION to position,
-                    PLAYER to player,
-                    IS_ACTIVE to isActive
-                ))
+            if(playbackState != null){
+                map[IS_ACTIVE] = playbackState.isActive()
+            }
+
+            return SharedMusicUpdateParameters(map)
         }
-
-        fun from(metadata: ControllerMusicMetadata) =
-            SharedMusicUpdateMap(
-                mapOf(
-                    TITLE to metadata.title,
-                    ARTIST to metadata.artist,
-                    DURATION to metadata.duration,
-                    POSITION to metadata.position,
-                    PLAYER to metadata.player,
-                    IS_ACTIVE to metadata.isActive
-                ))
     }
 
-    fun updatableFrom(metadata: MediaMetadata?) : Boolean {
-        if(metadata == null)return true
+    fun updatableFrom(parameters: SharedMusicUpdateParameters) : Boolean {
+        val map = parameters.updateMap
 
-        val title: String = try {
-            metadata.getString(MediaMetadata.METADATA_KEY_TITLE)
-        } catch (ignored: java.lang.Exception) { "" }
-
-        val artist: String = try {
-            metadata.getString(MediaMetadata.METADATA_KEY_ARTIST) ?: metadata.getString(MediaMetadata.METADATA_KEY_ALBUM_ARTIST)
-        } catch (ignored: java.lang.Exception) { "" }
-
-        return title != updateMap[TITLE] || artist != updateMap[ARTIST]
-     }
+        return map[TITLE] != updateMap[TITLE] || map[ARTIST] != updateMap[ARTIST] ||
+                map[GEO_HASH] != updateMap[GEO_HASH] || map[LOCATION] != updateMap[LOCATION]
+    }
 }

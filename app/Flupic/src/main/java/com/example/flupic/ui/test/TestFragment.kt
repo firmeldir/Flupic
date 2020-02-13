@@ -46,12 +46,14 @@ class TestFragment : Fragment() {
     private val connection: ServiceConnection = object : ServiceConnection{
 
         override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
+            Log.i("VLAD", "onServiceConnected")
             val binder = p1 as? MusicSharingService.LocalBinder
             service = binder?.service
             bound = true
         }
 
         override fun onServiceDisconnected(p0: ComponentName?) {
+            Log.i("VLAD", "onServiceDisconnected")
             service = null
             bound = false
         }

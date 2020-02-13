@@ -41,7 +41,7 @@
     <!--  Services  -->
     <string name="nl_service">NLService</string>
     <string name="nl_service_notification_title">Sharing music</string>
-    <string name="nl_service_notification_sub">Click to stop or disable in map</string>
+    <string name="nl_service_notification_sub">Click to stop or disable in parameters</string>
     <string name="notification_stop">STOP</string>
 
 </resources>

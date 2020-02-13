@@ -8,9 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.example.flupic.scrobbler.data.PeriodicLocationDataSource
 import com.example.flupic.scrobbler.data.SharedMusicRepository
-import com.example.flupic.scrobbler.data.SharedMusicUpdateMap
-import com.example.flupic.scrobbler.model.ControllerMusicMetadata
-import com.example.flupic.scrobbler.model.toControllerMusicMetadata
+import com.example.flupic.scrobbler.data.SharedMusicUpdateParameters
 import com.example.flupic.scrobbler.util.isActive
 import kotlinx.coroutines.*
 import javax.inject.Inject
@@ -20,21 +18,16 @@ class MusicSharingController @Inject constructor (
     private val periodicLocationDataSource: PeriodicLocationDataSource
 ) {
 
-    private lateinit var currentLocationObservable: LiveData<Location?>
+    private var currentLocationObservable: LiveData<Location?>? = null
 
     private val locationObserver = Observer<Location?> {
-        if(it == null)return@Observer
-
-        val metadata = currentController?.toControllerMusicMetadata()
-        if(metadata?.isActive != true)return@Observer
-
-        postSharedMusicUpdate(metadata, it)
+        postSharedMusicUpdate(SharedMusicUpdateParameters.from(currentController, currentLocationObservable?.value))
     }
 
     fun onDestroy(){
         setSharedMusicActivityState(false)
 
-        currentLocationObservable.removeObserver(locationObserver)
+        currentLocationObservable?.removeObserver(locationObserver)
         periodicLocationDataSource.clearListener()
         currentController?.unregisterCallback(mediaControllerStateListener)
 
@@ -44,19 +37,17 @@ class MusicSharingController @Inject constructor (
     fun onCreate(){
         periodicLocationDataSource.startListening()
         currentLocationObservable = periodicLocationDataSource.getObservableUserLocation()
-        currentLocationObservable.observeForever(locationObserver)
+        currentLocationObservable?.observeForever(locationObserver)
     }
 
 
     //   *   *   *     *   *   *     *   *   *
 
-    private var latestPostedMusicUpdate: SharedMusicUpdateMap? = null
-
     private var currentController: MediaController? = null
         set(value){
             if(!isInvalidPackage(value)){
                 field = value
-                postSharedMusicUpdate(value?.toControllerMusicMetadata())
+                postSharedMusicUpdate(SharedMusicUpdateParameters.from(value, currentLocationObservable?.value))
             }
         }
 
@@ -86,16 +77,13 @@ class MusicSharingController @Inject constructor (
         object : MediaController.Callback() {
 
             override fun onMetadataChanged(metadata: MediaMetadata?) {
-                if(latestPostedMusicUpdate?.updatableFrom(metadata) != false){
-                    postSharedMusicUpdate(metadata)
-                }
+                postSharedMusicUpdate(SharedMusicUpdateParameters.from(metadata))
             }
 
             override fun onPlaybackStateChanged(state: PlaybackState?) {
                 super.onPlaybackStateChanged(state)
-                if(!state.isActive()){
-                    setSharedMusicActivityState(false)
-                }
+                if(state == null)return
+                setSharedMusicActivityState(state.isActive())
             }
         }
 
@@ -116,36 +104,11 @@ class MusicSharingController @Inject constructor (
 
     //   *   *   *     *   *   *     *   *   *
 
-    private fun postSharedMusicUpdate(metadata: ControllerMusicMetadata?, location: Location){
-        if(metadata == null)return
-
-        val updateMap = SharedMusicUpdateMap.from(metadata) ?: return
-        latestPostedMusicUpdate = updateMap
+    private fun postSharedMusicUpdate(parameters: SharedMusicUpdateParameters?){
+        if(parameters == null)return
 
         coroutineScope.launch {
-            sharedMusicRepository.sendSharedMusicUpdate(metadata, location)
-        }
-    }
-
-    private fun postSharedMusicUpdate(metadata: ControllerMusicMetadata?){
-        if(metadata == null)return
-
-        val updateMap = SharedMusicUpdateMap.from(metadata) ?: return
-        latestPostedMusicUpdate = updateMap
-
-        coroutineScope.launch {
-            sharedMusicRepository.sendSharedMusicUpdate(updateMap)
-        }
-    }
-
-    private fun postSharedMusicUpdate(metadata: MediaMetadata?){
-        if(metadata == null)return
-
-        val updateMap = SharedMusicUpdateMap.from(metadata) ?: return
-        latestPostedMusicUpdate = updateMap
-
-        coroutineScope.launch {
-            sharedMusicRepository.sendSharedMusicUpdate(updateMap)
+            sharedMusicRepository.sendSharedMusicUpdate(parameters)
         }
     }
 

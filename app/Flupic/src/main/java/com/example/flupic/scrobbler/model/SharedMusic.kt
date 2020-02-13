@@ -33,20 +33,5 @@ data class FireSharedMusic(
 
     val isActive: Boolean = true,
     @DocumentId val id: String = ""
-){
-    companion object{
-
-        fun fromControllerMusicMetadata(metadata: ControllerMusicMetadata, geoPoint: GeoPoint, geoHash: String) : FireSharedMusic
-            = FireSharedMusic(
-            title = metadata.title,
-            artist = metadata.artist,
-            duration = metadata.duration,
-            position = metadata.position,
-            player = metadata.player,
-            l = geoPoint,
-            g = geoHash,
-            isActive = metadata.isActive
-        )
-    }
-}
+)
 

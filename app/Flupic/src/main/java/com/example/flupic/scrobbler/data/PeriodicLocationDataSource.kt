@@ -27,7 +27,7 @@ class PeriodicLocationDataSourceImpl @Inject constructor(
 ) : PeriodicLocationDataSource{
 
     companion object{
-        private const val REQUESTING_INTERVAL = 10 * 1000L
+        private const val REQUESTING_INTERVAL = 3 * 1000L
     }
 
     private val currentLocationObservable = MutableLiveData<Location?>()
@@ -43,7 +43,6 @@ class PeriodicLocationDataSourceImpl @Inject constructor(
 
     private var propagator: LocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult?) {
-            Log.i("VLAD", "------")
             currentLocationObservable.postValue(locationResult?.lastLocation)
         }
     }
