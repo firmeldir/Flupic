@@ -1,6 +1,5 @@
 package com.example.flupic.util
 
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import androidx.lifecycle.LiveData
@@ -14,7 +13,7 @@ interface PickPhotoViewModelDelegate {
 
     val currentPickedPhoto: LiveData<Uri>
 
-    val performSignInEvent: MutableLiveData<PickPhotoRequest>
+    val performPickPhotoEvent: MutableLiveData<PickPhotoRequest>
 
     fun emitPickPhotoRequest()
 
@@ -27,10 +26,10 @@ class ExternalStoragePickPhotoViewModelDelegate @Inject constructor() : PickPhot
     override val currentPickedPhoto: LiveData<Uri>
         get() = _currentPickedPhoto
 
-    override val performSignInEvent = MutableLiveData<PickPhotoRequest>()
+    override val performPickPhotoEvent = MutableLiveData<PickPhotoRequest>()
 
     override fun emitPickPhotoRequest() {
-        performSignInEvent.postValue(PickPhotoRequest(PickPhotoRequestHandler))
+        performPickPhotoEvent.postValue(PickPhotoRequest(PickPhotoRequestHandler))
     }
 
     override fun onPickPhotoResult(requestCode: Int, resultCode: Int, data: Intent?) {

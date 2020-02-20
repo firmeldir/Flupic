@@ -39,4 +39,9 @@
             android:id="@+id/testFragment"
             android:name="com.example.flupic.ui.test.TestFragment"
             android:label="TestFragment" />
+    <fragment
+            android:id="@+id/youtubeFragment"
+            android:name="com.example.flupic.ui.youtube.YoutubeFragment"
+            android:label="fragment_youtube"
+            tools:layout="@layout/fragment_youtube" />
 </navigation>

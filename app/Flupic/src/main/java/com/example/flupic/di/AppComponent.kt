@@ -15,6 +15,7 @@ import com.example.flupic.ui.activity.MainActivity
 import com.example.flupic.ui.auth.InfoSupplyFragment
 import com.example.flupic.ui.profile.UserProfileFragment
 import com.example.flupic.ui.test.TestFragment
+import com.example.flupic.ui.youtube.YoutubeFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -38,6 +39,7 @@ interface AppComponent {
     fun inject(fragment: InfoSupplyFragment)
     fun inject(fragment: UserProfileFragment)
     fun inject(fragment: TestFragment)
+    fun inject(fragment: YoutubeFragment)
 
     fun inject(service: MusicSharingService)
 

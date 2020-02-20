@@ -28,7 +28,6 @@ abstract class UseCase<in P, R> {
             scope.launch { withContext(Dispatchers.Default) {
                 try {
                     result.postValue(Result.Success(execute(parameters)))
-
                 } catch (e: Exception) {
                     Log.e(TAG, e.message.toString())
 

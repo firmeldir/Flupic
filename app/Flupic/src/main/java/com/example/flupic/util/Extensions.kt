@@ -200,6 +200,8 @@ fun ImageView.setCircleImageByUrl(photoUrl: String?, placeholder: Drawable?)
     }
 }
 
+fun Fragment.animate() = this.view?.animate()
+
 @BindingAdapter("onLoading")
 fun MaterialProgressBar.onLoading(boolean: Boolean?){
     this.visibility = if(boolean == true) View.VISIBLE else View.GONE

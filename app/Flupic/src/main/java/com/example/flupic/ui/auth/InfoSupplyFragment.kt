@@ -7,8 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.flupic.BaseApplication
@@ -16,11 +14,9 @@ import com.example.flupic.R
 
 import com.example.flupic.databinding.FragmentInfoSupplyBinding
 import com.example.flupic.result.ActivityRequestEventObserver
-import com.example.flupic.result.Event
 import com.example.flupic.result.EventObserver
 import com.example.flupic.util.getValidUsernameOr
 import com.example.flupic.util.setUpSnackbar
-import com.example.flupic.util.view.SnackbarMessage
 import com.example.flupic.util.view.SnackbarMessageManager
 import com.example.flupic.util.viewModelProvider
 import javax.inject.Inject
@@ -75,7 +71,7 @@ class InfoSupplyFragment : Fragment() {
     }
 
     private fun setupObservers(){
-        infoSupplyViewModel.performSignInEvent.observe(this, ActivityRequestEventObserver(this))
+        infoSupplyViewModel.performPickPhotoEvent.observe(this, ActivityRequestEventObserver(this))
 
         infoSupplyViewModel.navigateToProfileAction.observe(this, EventObserver {
             navigateToProfile()

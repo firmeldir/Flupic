@@ -44,4 +44,8 @@
     <string name="nl_service_notification_sub">Click to stop or disable in parameters</string>
     <string name="notification_stop">STOP</string>
 
+
+    <!--  Youtube Errors  -->
+    <string name="unknown_player_error">Video player error occurred. Check internet connection</string>
+
 </resources>

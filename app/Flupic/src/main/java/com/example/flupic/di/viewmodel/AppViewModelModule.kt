@@ -6,6 +6,7 @@ import com.example.flupic.ui.activity.LaunchActivityViewModel
 import com.example.flupic.ui.activity.MainViewModel
 import com.example.flupic.ui.auth.InfoSupplyViewModel
 import com.example.flupic.ui.profile.UserProfileViewModel
+import com.example.flupic.ui.youtube.YoutubeViewModel
 import com.example.flupic.util.handler.PhoneNumberVerificationHandler
 import com.example.flupic.util.handler.PhoneProviderResponseHandler
 import com.example.flupic.util.handler.SmartLockHandler
@@ -35,4 +36,9 @@ internal abstract class AppViewModelModule {
     @IntoMap
     @ViewModelKey(UserProfileViewModel::class)
     internal abstract fun bindUserProfileViewModel(viewmodel: UserProfileViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(YoutubeViewModel::class)
+    internal abstract fun bindYoutubeViewModel(viewmodel: YoutubeViewModel): ViewModel
 }

@@ -39,9 +39,9 @@ class MainActivity : AppCompatActivity(){
 
     private fun setupNavGraph(){
         val navGraph = navController.navInflater.inflate(R.navigation.navigation)
-
+ 
         val destination = when(intent.getSerializableExtra(LAUNCH_DESTINATION)){
-            LaunchDestination.APPLICATION -> R.id.testFragment  //TODO : PROFILE
+            LaunchDestination.APPLICATION -> R.id.youtubeFragment  //TODO : PROFILE
             LaunchDestination.FULLY_REGISTRATION -> R.id.infoSupplyFragment
             else -> R.id.authFragment
         }
