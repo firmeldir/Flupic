@@ -45,8 +45,9 @@ class MusicSharingService : Service(){
         if(checkLocationPermissionAccess(connecter.error)){
             startService(Intent(applicationContext, MusicSharingService::class.java))
 
-            setupActiveSessionsControl()
             musicSharingController.onCreate()
+
+            setupActiveSessionsControl()
             connecter.isScrobbling.value = true
         }
         else{

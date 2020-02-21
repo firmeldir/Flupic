@@ -4,28 +4,40 @@ import android.location.Location
 import android.media.MediaMetadata
 import android.media.session.MediaController
 import android.media.session.PlaybackState
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.example.flupic.scrobbler.data.PeriodicLocationDataSource
-import com.example.flupic.scrobbler.data.SharedMusicRepository
-import com.example.flupic.scrobbler.data.SharedMusicUpdateParameters
-import com.example.flupic.scrobbler.util.isActive
+import com.example.flupic.scrobbler.domain.*
+import com.example.flupic.scrobbler.model.PointLocation
+import com.example.flupic.scrobbler.model.PointMedia
+import com.example.flupic.scrobbler.model.PointState
+import com.example.flupic.scrobbler.model.SharingPoint
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class MusicSharingController @Inject constructor (
-    private val sharedMusicRepository: SharedMusicRepository,
+    private val activateSharingPointUseCase: ActivateSharingPointUseCase,
+    private val sendSharingPointUpdateUseCase: SendSharingPointUpdateUseCase,
+    private val updateSharingPointMediaUseCase: UpdateSharingPointMediaUseCase,
+    private val updateSharingPointStateUseCase: UpdateSharingPointStateUseCase,
     private val periodicLocationDataSource: PeriodicLocationDataSource
 ) {
 
     private var currentLocationObservable: LiveData<Location?>? = null
 
     private val locationObserver = Observer<Location?> {
-        postSharedMusicUpdate(SharedMusicUpdateParameters.from(currentController, currentLocationObservable?.value))
+
+        val location = PointLocation.from(it) ?: return@Observer
+        val state = PointState.from(currentController?.playbackState) ?: return@Observer
+
+        Log.i("VLAD", "______1  $location  $state")
+
+        sendSharingPointUpdateUseCase(SendSharingPointUpdateParameters(state, location), coroutineScope)
     }
 
     fun onDestroy(){
-        setSharedMusicActivityState(false)
+        updateSharingPointStateUseCase(PointState(false, 0L))
 
         currentLocationObservable?.removeObserver(locationObserver)
         periodicLocationDataSource.clearListener()
@@ -35,6 +47,10 @@ class MusicSharingController @Inject constructor (
     }
 
     fun onCreate(){
+        Log.i("VLAD", "onCreate")
+        coroutineJob = Job()
+        coroutineScope =  CoroutineScope(coroutineJob + Dispatchers.Main)
+
         periodicLocationDataSource.startListening()
         currentLocationObservable = periodicLocationDataSource.getObservableUserLocation()
         currentLocationObservable?.observeForever(locationObserver)
@@ -47,7 +63,8 @@ class MusicSharingController @Inject constructor (
         set(value){
             if(!isInvalidPackage(value)){
                 field = value
-                postSharedMusicUpdate(SharedMusicUpdateParameters.from(value, currentLocationObservable?.value))
+                activateSharingPoint(value)
+                Log.i("VLAD", "______2")
             }
         }
 
@@ -77,49 +94,35 @@ class MusicSharingController @Inject constructor (
         object : MediaController.Callback() {
 
             override fun onMetadataChanged(metadata: MediaMetadata?) {
-                postSharedMusicUpdate(SharedMusicUpdateParameters.from(metadata))
+                val media = PointMedia.from(metadata) ?: return
+
+                updateSharingPointMediaUseCase(media, coroutineScope)
+                Log.i("VLAD", "______3")
+
             }
 
             override fun onPlaybackStateChanged(state: PlaybackState?) {
                 super.onPlaybackStateChanged(state)
-                if(state == null)return
-                setSharedMusicActivityState(state.isActive())
+                val pointState = PointState.from(state) ?: return
+
+                updateSharingPointStateUseCase(pointState, coroutineScope)
+                Log.i("VLAD", "______4")
+
             }
         }
 
-    //    public static final long PLAYBACK_POSITION_UNKNOWN = -1L;
-    //    public static final int STATE_BUFFERING = 6;
-    //    public static final int STATE_CONNECTING = 8;
-    //    public static final int STATE_ERROR = 7;
-    //    public static final int STATE_FAST_FORWARDING = 4;
-    //    public static final int STATE_NONE = 0;
-    //    public static final int STATE_PAUSED = 2;
-    //    public static final int STATE_PLAYING = 3;
-    //    public static final int STATE_REWINDING = 5;
-    //    public static final int STATE_SKIPPING_TO_NEXT = 10;
-    //    public static final int STATE_SKIPPING_TO_PREVIOUS = 9;
-    //    public static final int STATE_SKIPPING_TO_QUEUE_ITEM = 11;
-    //    public static final int STATE_STOPPED = 1;
 
 
-    //   *   *   *     *   *   *     *   *   *
+    private lateinit var coroutineJob: Job
+    private lateinit var coroutineScope: CoroutineScope
 
-    private fun postSharedMusicUpdate(parameters: SharedMusicUpdateParameters?){
-        if(parameters == null)return
+    private fun activateSharingPoint(currentController: MediaController?){
+        Log.i("VLAD", "$currentController , ${currentLocationObservable?.value}")
 
-        coroutineScope.launch {
-            sharedMusicRepository.sendSharedMusicUpdate(parameters)
-        }
+        val point = SharingPoint.from(currentController, currentLocationObservable?.value) ?: return
+        Log.i("VLAD", "______5")
+        activateSharingPointUseCase(point, coroutineScope)
     }
-
-    private fun setSharedMusicActivityState(state: Boolean){
-        GlobalScope.launch {
-            sharedMusicRepository.setSharedMusicActivityState(state)
-        }
-    }
-
-    private val coroutineJob = Job()
-    private val coroutineScope = CoroutineScope(coroutineJob + Dispatchers.Main)
 
     companion object{
 

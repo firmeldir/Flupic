@@ -41,9 +41,4 @@ fun Service.checkLocationPermissionAccess(error: MutableLiveData<Event<Exception
     return true
 }
 
-fun Location.toGeoPoint() = GeoPoint(this.latitude, this.longitude)
-
-fun Location.toGeoHashString() = GeoHash(GeoLocation(this.latitude, this.longitude)).geoHashString
-
-fun PlaybackState.isActive() = (this.state != 1 && this.state != 2)
 

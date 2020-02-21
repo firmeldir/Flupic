@@ -27,17 +27,19 @@ abstract class UseCase<in P, R> {
         try {
             scope.launch { withContext(Dispatchers.Default) {
                 try {
-                    result.postValue(Result.Success(execute(parameters)))
-                } catch (e: Exception) {
-                    Log.e(TAG, e.message.toString())
 
+                    result.postValue(Result.Success(execute(parameters)))
+
+                } catch (e: Exception) {
+
+                    Log.e(TAG, e.message.toString())
                     result.postValue(Result.Error(e))
                 }
             }
             }
         } catch (e: Exception) {
-            Log.e(TAG, e.message.toString())
 
+            Log.e(TAG, e.message.toString())
             result.postValue(Result.Error(e))
         }
     }

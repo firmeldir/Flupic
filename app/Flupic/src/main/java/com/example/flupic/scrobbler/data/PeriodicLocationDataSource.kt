@@ -1,5 +1,6 @@
 package com.example.flupic.scrobbler.data
 
+import android.annotation.SuppressLint
 import android.location.Location
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -35,7 +36,6 @@ class PeriodicLocationDataSourceImpl @Inject constructor(
     private var isAlreadyListening = false
 
 
-
     private val newRequestInstance
         get() = LocationRequest().apply {
             interval = REQUESTING_INTERVAL; priority = LocationRequest.PRIORITY_HIGH_ACCURACY
@@ -48,6 +48,7 @@ class PeriodicLocationDataSourceImpl @Inject constructor(
     }
 
 
+    @SuppressLint("MissingPermission")
     override fun startListening() {
         if (!isAlreadyListening) {
             locationProvider.requestLocationUpdates(newRequestInstance, propagator, null)
@@ -59,5 +60,6 @@ class PeriodicLocationDataSourceImpl @Inject constructor(
 
     override fun clearListener() {
         locationProvider.removeLocationUpdates(propagator)
+        isAlreadyListening = false
     }
 }
