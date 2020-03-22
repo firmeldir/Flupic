@@ -38,10 +38,6 @@ import javax.inject.Inject
 
 class AuthFragment : Fragment(), ProgressView {
 
-    companion object{
-        private const val TAG = "TAG AuthFragment"
-    }
-
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     lateinit var authComponent: AuthComponent
@@ -153,10 +149,6 @@ class AuthFragment : Fragment(), ProgressView {
         })
     }
 
-
-    // *  *  *  *  *  *
-
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         verificationHandler.onSaveInstanceState(outState)
@@ -177,10 +169,6 @@ class AuthFragment : Fragment(), ProgressView {
 
     }
 
-
-    // *  *  *  *  *  *
-
-
     private fun navigateToInfoSupplyFragment(){
         findNavController().navigate(R.id.infoSupplyFragment)
     }
@@ -188,10 +176,6 @@ class AuthFragment : Fragment(), ProgressView {
     private fun navigateToProfileFragment(){
         findNavController().navigate(R.id.profileFragment)
     }
-
-
-    // *  *  *  *  *  *
-
 
     private fun handleError(e: Exception){
         if(e is FirebaseAuthException){
@@ -229,4 +213,9 @@ class AuthFragment : Fragment(), ProgressView {
 
     private fun getAuthChildFragment(): BaseAuthFragmentChild? =
         (navHostFragment.childFragmentManager.fragments[0] as? BaseAuthFragmentChild)
+
+
+    companion object{
+        private const val TAG = "TAG AuthFragment"
+    }
 }

@@ -117,13 +117,14 @@ dependencies {
     //Location
     implementation ("com.google.android.gms:play-services-location:17.0.0"){exclude group:'com.google.guava'}
     implementation 'com.github.imperiumlabs:GeoFirestore-Android:v1.5.0'        //TODO : Rewrite to own hashing code
-    implementation files('libs/YouTubeAndroidPlayerApi.jar')
+
 
     //YouTube
     implementation ('com.google.apis:google-api-services-youtube:v3-rev182-1.22.0'){exclude group:'com.google.guava'}
     implementation ('com.google.http-client:google-http-client-android:1.20.0'){exclude group:'com.google.guava'}
     implementation ('com.google.api-client:google-api-client-android:1.20.0'){exclude group:'com.google.guava'}
     implementation ('com.google.api-client:google-api-client-gson:1.20.0'){exclude group:'com.google.guava'}
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
 
 }
 

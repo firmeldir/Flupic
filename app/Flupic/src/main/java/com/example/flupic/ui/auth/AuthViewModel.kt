@@ -16,7 +16,7 @@ import javax.inject.Inject
 class AuthViewModel @Inject constructor(
     private val authenticationCompletedUseCase: AuthenticationCompletedUseCase,
     private val fullRegistrationCompletedUseCase: FullRegistrationCompletedUseCase
-) : ViewModel(){ //TODO : Make Delegate because the same case in Launch ViewModel
+) : ViewModel(){ //TODO : Make Delegate because the same case in Launch ViewMo  del
 
     private val authenticationCompletedResult = MutableLiveData<Result<Boolean>>()
     private val fullRegistrationCompletedResult = MutableLiveData<Result<Boolean>>()

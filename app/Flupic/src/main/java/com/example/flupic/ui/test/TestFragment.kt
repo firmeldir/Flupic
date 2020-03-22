@@ -28,8 +28,7 @@ import javax.inject.Inject
 
 class TestFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+
 
     private lateinit var binding: FragmentTestBinding
 

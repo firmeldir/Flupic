@@ -31,8 +31,6 @@ class MusicSharingController @Inject constructor (
         val location = PointLocation.from(it) ?: return@Observer
         val state = PointState.from(currentController?.playbackState) ?: return@Observer
 
-        Log.i("VLAD", "______1  $location  $state")
-
         sendSharingPointUpdateUseCase(SendSharingPointUpdateParameters(state, location), coroutineScope)
     }
 
@@ -47,7 +45,6 @@ class MusicSharingController @Inject constructor (
     }
 
     fun onCreate(){
-        Log.i("VLAD", "onCreate")
         coroutineJob = Job()
         coroutineScope =  CoroutineScope(coroutineJob + Dispatchers.Main)
 
@@ -64,7 +61,6 @@ class MusicSharingController @Inject constructor (
             if(!isInvalidPackage(value)){
                 field = value
                 activateSharingPoint(value)
-                Log.i("VLAD", "______2")
             }
         }
 
@@ -97,7 +93,6 @@ class MusicSharingController @Inject constructor (
                 val media = PointMedia.from(metadata) ?: return
 
                 updateSharingPointMediaUseCase(media, coroutineScope)
-                Log.i("VLAD", "______3")
 
             }
 
@@ -106,8 +101,6 @@ class MusicSharingController @Inject constructor (
                 val pointState = PointState.from(state) ?: return
 
                 updateSharingPointStateUseCase(pointState, coroutineScope)
-                Log.i("VLAD", "______4")
-
             }
         }
 
@@ -117,10 +110,7 @@ class MusicSharingController @Inject constructor (
     private lateinit var coroutineScope: CoroutineScope
 
     private fun activateSharingPoint(currentController: MediaController?){
-        Log.i("VLAD", "$currentController , ${currentLocationObservable?.value}")
-
         val point = SharingPoint.from(currentController, currentLocationObservable?.value) ?: return
-        Log.i("VLAD", "______5")
         activateSharingPointUseCase(point, coroutineScope)
     }
 

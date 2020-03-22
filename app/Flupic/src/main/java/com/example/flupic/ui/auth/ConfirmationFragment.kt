@@ -128,11 +128,11 @@ class ConfirmationFragment : BaseAuthFragmentChild(), ProgressView {
         verificationHandler.submitVerificationCode(phoneNumber, binding.confirmationCode.text.toString())
     }
 
-    private fun inject() = with(authFragment.authComponent){
-        this.inject(this@ConfirmationFragment)
-    }
-
     override fun showProgress() { binding.nextButton.isEnabled = false }
 
     override fun hideProgress() { binding.nextButton.isEnabled = true }
+
+    private fun inject() = with(authFragment.authComponent){
+        this.inject(this@ConfirmationFragment)
+    }
 }
